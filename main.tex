@@ -1,0 +1,218 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian, english]{babel}
+\usepackage{statmath}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{МО2}
+\date{March 2021}
+
+\begin{document}
+
+\maketitle
+
+\section{Ядровые методы}
+
+Данные: $x = (x_{1}, ... x_{m})$
+\newline
+Базисные функции: $\phi(x_{1}, ...)$
+\newline
+Модель принимает вид: $a(x) = \sum_{j = 1}^{m}w_{j}\phi_{j}(x)$
+\newline
+Для хорошего качества нужно много базисных функций $\rightarrow$ Ядровые методы позволяют не перебирать большое количество базисных функций
+
+\begin{itemize}
+    \item Быстрое обучение
+\end{itemize}
+
+\begin{center}
+    \textit{Ядровые методы}
+\end{center}
+\begin{enumerate}
+    \item Двойственное представление для линейной регрессии
+    \newline
+    
+    $Q(w) = \frac{1}{2}\sum_{i = 1}^{l}(\sum_{j = 1}^{m}(w_{j}\phi_{j}(x_{i}) - y_{i})^{2} + \frac{\lambda}{2}||w||^{2}_{2} = \frac{1}{2}||\Phi w - y||_{2}^{2} + \frac{\lambda}{2}||w||_{2}^{2}$
+    \newline
+    
+    $\Phi = \begin{pmatrix}\phi_{1}(x_{1}) & ... & \phi_{m}(x_{1}) \\ ... & ... & ... \\ \phi_{1}(x_{l}) & ... & \phi_{m}(x_{l}) \end{pmatrix}$
+    
+    $\nabla_{w}Q = \Phi^{T}(\Phi w - y) + \lambda w \rightarrow w = -\frac{1}{\lambda}\Phi^{T}(\Phi w - y) \rightarrow w = \Phi^{T}a$
+    \newline
+    
+    w является линейной комбинацией строк $\Phi \rightarrow$ Решение можно искать из $w = \Phi^{T}a$ 
+    
+    $Q(a) = \frac{1}{2}||\Phi \Phi^{T}a - y|| + \frac{\lambda}{2}a^{T} \Phi \Phi^{T}a \rightarrow min_{a}$
+    \newline
+    
+    $\Phi \Phi^{T}$ - матрица Грама (попарных скалярных произведений объектов)
+    \newline
+    
+    Можно записать Q(w) так, что он зависит только от скалярных произведений объектов
+    
+    \item SVM
+    
+    $\begin{cases}
+    \sum_{i = 1}^{l} \lambda_{i} - \frac{1}{2} \sum_{i, j = 1}^{l} \lambda_{i}\lambda_{j}y_{i}y_{j}<x_{i}, x_{j}> \rightarrow max_{\lambda} \\
+    0 \geq \lambda_{i} \leq C
+    \\
+    \sum_{i = 1}^{l} \lambda_{i}y_{i} = 0
+    \end{cases}$
+    
+    Такая формулировка задачи зависит от скалярных произведений объектов
+    
+    \item Алгоритм
+    \begin{enumerate}
+        \item Добавляем новые признаки
+        \item Делаем это так, что $<\phi(x), \phi(z)>$ выражается через $<x, z>$
+        \item Используем метод, который использует скалярные произведения объектов
+        \item В этом методе $<x, z> \rightarrow <\phi(x), \phi(z)>$ (\textit{Kernel trick})
+    \end{enumerate}
+    \item \textbf{Ядро} - функция $K(x, z) = <\phi(x), \phi(z)>$, где $\phi: X \to H$
+    \begin{enumerate}
+        \item H - спрямляющее пространство
+        \item $\phi$ - спрямляющее отображение
+    \end{enumerate}
+    
+    \item \textbf{Теорема Мерсера}
+    \begin{enumerate}
+        \item $K(x, z) \text{ - ядро} \leftrightarrow \begin{cases}
+        K(x, z) = K(z, x) \\ K \text{ неотрицательно определенная}
+        \end{cases}$
+        \item НО $ \rightarrow \forall l, \forall (x_{1}, ..., x_{l}) \in R^{d} \rightarrow (K(x_{i}, x_{j}))^{l}_{i, j = 1} \text{ НО}$
+        \item \textit{На практике теорема Мерсера слишком сложна для применения}
+    \end{enumerate}
+    
+    \item \textbf{Теорема 1}
+    \begin{enumerate}
+        \item Если
+        \begin{enumerate}
+            \item $K_{1}(x, z), K_{2}(x, z)$ - ядра, $x, z \in X$
+            \item $f^{(x)}$ - вещественная функция на X
+            \item $\phi: X \rightarrow R^{n}$
+            \item $K_{3}$ - ядро заданное на $R^{n}$
+        \end{enumerate}
+        \item То \textit{cледующие функции являюися ядрами:}
+        \begin{enumerate}
+            \item $K(x, z) = K_{1}(x, z) + K_{2}(x, z)$
+            \item $K(x, z) = \alpha K_{1}(x, z)$
+            \item $K(x, z) = K_{1}K_{2}$
+            \item $K(x, z) = f^{(x)}f^{(z)}$
+            \item $K(x, z) = K(\phi(x), \phi(z))$
+        \end{enumerate}
+    \end{enumerate}
+    \item \textbf{Теорема 2}
+    \begin{enumerate}
+        \item Если:
+        \begin{enumerate}
+                \item $K_{1}(x, z), K_{2}(x, z), ...$ - последовательность ядер
+                \item $\exists K(x, z) = \lim_{n \to \infty}K_{n}(x, z), \forall x, z$
+        \end{enumerate}
+        \item То:
+        \begin{enumerate}
+            \item K - ядро
+        \end{enumerate}
+    \end{enumerate}
+    \item \textbf{Полиномиальные ядра}
+    \begin{enumerate}
+        \item p(v) - многочлен с неотриц. коэфф
+        \item $K(x, z) = w_{0} + w_{1}<x, z> + w_{2}<x, z>^{2} + ...$
+        \item Является ядром по теореме 1
+        \item $K(x, z) = (<x, z> + R)^{m} = \sum_{i = 0}^{m} C_{m}^{i}R^{m - i}<x, z>^{i}$
+        \begin{enumerate}
+            \item Если расписать все $<x, z>^{i}$, то получим все мономы степени i от исходных признаков 
+            \item Зачем R? $\rightarrow$ коэффициент при мономе = $\sqrt{C_{m}^{i}R^{m - i}}$
+            \item Сравним веса при мономах 1 и (m - 1)
+            $\sqrt{\frac{C^{m - 1}_{m}R}{C^{1}_{m}R^{m-1}}} = \sqrt{\frac{1}{R^{m - 2}}}$
+            \item R больше - мономы высоких степеней имеют низкий вклад
+            \item Конечномерное спрямляющее пространство, но можно сделать линейно разделимое пространство
+        \end{enumerate}
+    \end{enumerate}
+    \item \textbf{Гауссовы ядра}
+    \begin{enumerate}
+        \item Позволяет перевести в бесконечномерное спрямляющее пространство
+        \item \fbox{$K(x, z) = exp\left(-\frac{||x - z||^{2}}{2\sigma^{2}}\right)$}
+        \begin{enumerate}
+            \item $exp(<x, z>) = \sum_{k = 0}^{\infty}\frac{<x, z>^{k}}{k\!}, \forall x, z = \lim_{n \to \infty}  \sum_{k = 0}^{\infty}\frac{<x, z>^{k}}{k\!}$
+            \begin{enumerate}
+                \item Разложение через ряд Тейлора
+                \item Ядро, как последовательность ядер
+            \end{enumerate}
+            \item $\frac{exp(<x, z>)}{2\sigma^{2}}$ - ядро, аналогично
+            \item $exp\left(-\frac{||x - z||^{2}}{2\sigma^{2}}\right) = exp\left(-\frac{<x - z, x - z>}{2\sigma^{2}}\right) = exp\left(-\frac{<x,x> -  <z, z>,  + <x, z>}{2\sigma^{2}}\right) = \frac{exp(<x, z> / \sigma^{2}}{exp(||x||^{2} / \sigma^{2})exp(||z||^{2} / \sigma^{2}})$
+            \item $exp(<x, z> / \sigma^{2}) = K(x, z) = <\phi(x), \phi(z)>$
+            \item $\tilde{\phi(x)} = \frac{\phi(x)}{||\phi(x)||} = \frac{\phi(x)}{\sqrt{K(x, x)}}$
+            \item $<\tilde{\phi(x)}, \tilde{\phi(z)}> = \frac{<\phi(x), \phi(z)>}{\sqrt{K(x, x)K(z, z)}}$
+        \end{enumerate}
+        \item Какое спрямляющее пространство? - бесконечная сумма всех мономов
+        \item \textit{Утверждение:} $x_{1}, ..., x_{l}$ - различные векторы из $\mathbb{R}^{d}$
+        
+        Тогда:
+        
+        $G = (exp\left(-\frac{||x - z||^{2}}{2\sigma^{2}}\right))^{l}_{i, j = 1}$ - невырожденная при $\sigma^{2} > 0$
+        \item $x_{1}, ..., x_{l} \in \mathbb{R}^{d}$ - их матрица Грамма невырождена $\rightarrow \phi(x_{1}, ..., x_{l})$ ЛНЗ $\rightarrow$ бесконечное количество ЛНЗ векторов $\rightarrow$ бесконечномерное пространство
+    \end{enumerate}
+    \item \textbf{Ядровой SVM}
+    \begin{enumerate}
+        \item $ \begin{cases}
+        \frac{1}{2}||w||^{2} + C\sum_{i = 1}^{l} \xi_{i} \rightarrow min_{w, b, \xi} \\
+        y_{i}(<w, x_{i}> + b) \geq 1 - \xi_{i} \\
+        \xi_{i} \geq 0
+        \end{cases} $
+        \[L(w, b, \xi, \lambda, \mu) = \frac{1}{2}||w||^2 + C\sum_{i = 1}^{d}\xi_i - \sum_{i = 1}^{l}\lambda_i (y_i(<w, x_i> + b) - 1 + \xi_i) - \sum_{i = 1}^l \mu_i \xi_i\]
+        
+        В точке оптимума $\nabla_w L = 0$
+        
+        \[\nabla_w L = w - \sum_{i = 1}^l \lambda y_i x_i = 0 \rightarrow w = \sum_{i = 1}^l \lambda_i y_i x_i\]
+        \[\nabla_b L = \sum_{i = 1}^{l} \lambda_i y_i = 0\]
+        \[\nabla_{\xi_i} L = C - \lambda_i - \mu_i = 0 \rightarrow \lambda_i + \mu_i = C\]
+        
+        Условие дополняющей нежесткости:
+        
+        \[\lambda_i (y_i(<w, x_i> + b) - 1 + \xi_i) = 0 \rightarrow \lambda_i = 0 \textrm{ или } (y_i(<w, x_i> + b) - 1 + \xi_i)\]
+        \[\mu_i \xi_i = 0 \rightarrow \mu_i = 0 \textrm{ или } \xi_i = 0\]
+
+        Свойства лагранжиана:
+
+        \[\lambda \geq 0, \mu \geq 0\]
+
+        \item Типы объектов
+        \begin{enumerate}
+            \item $\lambda_i = 0 \rightarrow \mu_i = C \rightarrow \xi_i = 0 \rightarrow x_i$ лежит с правильной стороны от 
+            разделяющей гиперплоскости и на достаточном расстоянии от нее. $w = \sum_{i = 1}^l \lambda y_i x_i \rightarrow$ объект не влияет на веса. 
+            Называется \textbf{периферийный.}
+            \item $0 < \lambda_i < 1 \rightarrow \mu \neq 0 \rightarrow \xi_0 = 0$. $x_i$ не залезает на разделяющую полосу, но $y_i(<w, x_i> + b) = 1 \rightarrow x_i$ лежит прямо на границе.
+            Дает вклад в $w$. $x_i$ - \textbf{опорный граничный.}
+            \item $\lambda_i = C \rightarrow \xi_i > 0$. 
+            $x_i$ дает вклад в w. $\xi_i > 0 \rightarrow x_i$ нарушает границу - \textbf{Опорные нарушители}.      
+        \end{enumerate}
+        \item Подставляем $w = \sum_{i = 1}^l \lambda y_i x_i$ в лагранжиан, учтем ограничения $\sum_{i = 1}^l \lambda_i y_i = 0$ и $C - \lambda_i - \mu_i = 0$
+        
+        \textbf{Двойственная задача SVM}
+        \[\begin{cases}
+            L = \sum_{i = 1}^l \lambda_i - \frac{1}{2}\sum_{i, j = 1}^l \lambda_i \lambda_j y_i y_j <x_i, x_j> \rightarrow max_{\lambda} \\
+            \sum_{i = 1}^l \lambda_i y_i = 0 \\
+            0 \leq \lambda_i \leq C
+        \end{cases}\]
+
+        \item Если $\lambda$ - решение, то $w = \sum_{i = 1}^l \lambda_i y_i x_i$ - решение исходной задачи
+        \item Задача зависит от объектов только через скалярное произведение $\rightarrow$
+        можно заменить его на ядро
+        \item Находим b
+        Берем $x_i: 0 < \lambda_i < C \rightarrow \xi_i = 0 \rightarrow y_i(<w, x_i> + b) = 1 \rightarrow b = y_i - <w, x_i>$
+        \item Минусы ядрового SVM
+        \begin{enumerate}
+            \item Сложно контролировать переобучение
+            \item Необходимо хранить в памяти матрицу Грамма
+            \item Нельзя менять функцию потерь
+        \end{enumerate}
+    \end{enumerate}
+    \item \textbf{Применение ядерной модели}
+    \begin{enumerate}
+        \item $a(x) = sign(<w, x> + b) = sign(<\sum_{i = 1}^l \lambda y_i x_i, x> + b) = sign(\sum_{i = 1}^l \lambda_i y_i <x_i, x> + b)$ 
+    \end{enumerate}
+\end{enumerate}
+\end{document}
