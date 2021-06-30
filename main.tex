@@ -56,7 +56,7 @@
     \item SVM
     
     $\begin{cases}
-    \sum_{i = 1}^{l} \lambda_{i} - \frac{1}{2} \sum_{i, j = 1}^{l} \lambda_{i}\lambda_{j}y_{i}y_{j}<x_{i}, x_{j}> \rightarrow max_{\lambda} \\
+    \sum_{i = 1}^{l} \lambda_{i} - \frac{1}{2} \sum_{i, j = 1}^{l} \lambda_{i}\lambda_{j}y_{i}y_{j}<x_{i}, x_{j}> \rightarrow \max_{\lambda} \\
     0 \geq \lambda_{i} \leq C
     \\
     \sum_{i = 1}^{l} \lambda_{i}y_{i} = 0
@@ -67,6 +67,7 @@
     \item Алгоритм
     \begin{enumerate}
         \item Добавляем новые признаки
+        \item $x, z \in X$
         \item Делаем это так, что $<\phi(x), \phi(z)>$ выражается через $<x, z>$
         \item Используем метод, который использует скалярные произведения объектов
         \item В этом методе $<x, z> \rightarrow <\phi(x), \phi(z)>$ (\textit{Kernel trick})
@@ -172,7 +173,7 @@
         
         Условие дополняющей нежесткости:
         
-        \[\lambda_i (y_i(<w, x_i> + b) - 1 + \xi_i) = 0 \rightarrow \lambda_i = 0 \textrm{ или } (y_i(<w, x_i> + b) - 1 + \xi_i)\]
+        \[\lambda_i (y_i(<w, x_i> + b) - 1 + \xi_i) = 0 \rightarrow \lambda_i = 0 \textrm{ или } (y_i(<w, x_i> + b) - 1 + \xi_i) =0\]
         \[\mu_i \xi_i = 0 \rightarrow \mu_i = 0 \textrm{ или } \xi_i = 0\]
 
         Свойства лагранжиана:
@@ -193,7 +194,7 @@
         
         \textbf{Двойственная задача SVM}
         \[\begin{cases}
-            L = \sum_{i = 1}^l \lambda_i - \frac{1}{2}\sum_{i, j = 1}^l \lambda_i \lambda_j y_i y_j <x_i, x_j> \rightarrow max_{\lambda} \\
+            L = \sum_{i = 1}^l \lambda_i - \frac{1}{2}\sum_{i, j = 1}^l \lambda_i \lambda_j y_i y_j <x_i, x_j> \rightarrow \max_{\lambda} \\
             \sum_{i = 1}^l \lambda_i y_i = 0 \\
             0 \leq \lambda_i \leq C
         \end{cases}\]
@@ -215,4 +216,260 @@
         \item $a(x) = sign(<w, x> + b) = sign(<\sum_{i = 1}^l \lambda y_i x_i, x> + b) = sign(\sum_{i = 1}^l \lambda_i y_i <x_i, x> + b)$ 
     \end{enumerate}
 \end{enumerate}
+
+\subsection{Семинар: Задачи условной оптимизации}
+
+\textit{Учебник: Boyd, Convex Optimization}
+
+\[\begin{cases}
+    f_0(x) \rightarrow min_{x \in R^d} \\
+    f_i(x) \leq 0, i = 1, \ldots, m \\
+    h_i(x) = 0, i = 1, \ldots, p
+\end{cases}\]
+
+\[G(x) = f_0(x) + \sum_{i = 1}^m I_{-}(f_i(x)) + \sum_{i = 1}^p I_0(h_i(x)) \rightarrow min\]
+
+Штрафы за нарушение ограничений:
+
+\[I_{-}(z) = \begin{cases}
+    0, z \leq 0 \\
+    + \infty, z > 0 
+\end{cases}\]
+
+\[I_{0} = \begin{cases}
+    0, z = 0 \\
+    + \infty, z \neq 0 
+\end{cases}\]
+
+\(G(x) \rightarrow \infty\) в точках где не выполняется условие
+
+Проблема: Недифференцируема
+
+Заменяем функции на их аппроксимации ($\hat{I}_{-} = ax$)
+
+Лагранжиан:
+
+\[L(x, \lambda, \nu) = f_0(x) + \sum_{i = 1}^m \lambda_i f_i(x) + \sum_{i = 1}^p \nu_i h_i(x)\]
+\[\lambda_i \geq 0\]
+
+x - прямые (primal) переменные
+
+$\lambda, \nu$ - двойственные переменные
+
+\textbf{Двойственная функция}
+
+\[g(\lambda, \nu) = \inf_{x} L(x, \lambda, \nu)\]
+
+\begin{itemize}
+    \item Двойственная функция всегда вогнутая
+    \item Дает нижнюю оценку на минимум функции в прямой задаче
+    
+    \(x^{\prime}\) - допустимая точка (все условия выполнены)
+
+    \[L(x^{\prime}, \lambda, \nu) = f_0(x^{\prime}) + 
+    \sum_{i = 1}^m \lambda_i f_i(x^{\prime}) + \sum_{i = 1}^p \nu_i h_i(x^{\prime})\]
+    \[f_i(x) \leq 0, h_i(x) = 0 \rightarrow 
+    L(x^{\prime}, \lambda, \nu) \leq f_0(x^{\prime})\]
+    \[\inf_x L(x, \lambda, \nu) \leq \inf_{x^{\prime}} 
+    L(x', \lambda, \nu) \leq \inf_{x^{\prime}} f_0(x')\]
+
+    $\uparrow$ - это и есть решение исходной задачи
+
+    \[g(\lambda, \nu) \leq f_0(x_{\star})\]
+
+    \[g(\lambda, \nu) \rightarrow \max_{\lambda, \nu}, \lambda_i \geq 0\]
+
+    \(\lambda^{\star}, \nu^{\star}\) - решение двойственной задачи
+
+    \(g(\lambda^{\star}, \nu^{\star}) \leq f_0(x_{*})\) - слабая двойственность
+
+    \(g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\) - сильная двойственность
+
+    \underline{Достаточное условие сильной двойственности (Условие Слейтера)}
+
+    \begin{itemize}
+        \item Задача выпуклая:
+        
+        \(f_0, f_1, \ldots, f_m\) - выпуклые
+
+        \(h_1, \ldots, h_p\) - линейные
+        \item \(\exists x^{\prime}\), что все ограничения выполнены строго
+    \end{itemize}
+\end{itemize}
+
+Пусть имеет место сильная двойственность:
+
+\[g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\]
+
+\[g(\lambda^{\star}, \nu^{\star}) = \inf_x(f_0(x) + 
+\sum \lambda^{\star} f_i(x) + \sum \nu^{\star} h_i(x))
+\leq f_0(x_{\star}) + 
+\sum \lambda^{\star} f_i(x_{\star}) + \sum \nu^{\star} h_i(x_{\star}) 
+\leq f_0(x_{\star})\]
+
+Все неравенства являются равенствами:
+
+\begin{itemize}
+    \item Если решить безусловную задачу при подставлении $\lambda^{\star}, \nu^{\star}$,
+    то получим решение прямой задачи
+    \item \(\lambda_i^{\star}f_{i}(x^{\star}) = 0\) - условие дополняющей нежесткости
+\end{itemize}
+
+\textbf{Теорема Куна-Такера}
+
+Необходимые условия для 
+
+\[
+\begin{cases}
+    \nabla_x L(x_{\star}, \lambda^{\star}, \nu^{\star}) = 0 \\
+    f_i(x) \leq 0 \\
+    h_i(x) = 0 \\
+    \lambda_i \geq 0 \\
+    \lambda_i f_i(x_{\star}) = 0 \\
+    \textrm{Сильная двойственность}
+\end{cases}
+\leftrightarrow x_{\star}, \lambda^{\star}, \nu^{\star} \textrm{решения}
+\]
+
+\section{Аппроксимации ядер, EM алгоритм}
+
+Скалярные произведения тяжело хранить из-за
+размера матрицы. 
+
+Есть ли возможность построить 
+$\tilde{\phi}(x) \rightarrow 
+<\tilde{\phi}(x_i), \tilde{\phi}(x_j)> 
+\approx K(x_i, x_j)$
+
+\subsection{Метод случайных признаков Фурье}
+
+\[K(x, z) = K(x - z)\]
+
+K - непрерывная функция
+
+\textit{Теорема Бохнера}
+
+\[K(x - z) \rightarrow \exists p(w) \rightarrow 
+K(x - z) = \int_{R^{d}} p(w)e^{iw^{T}(x - z)}dw\]
+
+\textit{Используем:}
+
+\[K(x - z) = \int_{R^{d}} p(w)e^{iw^{T}(x - z)}dw 
+\xrightarrow{\textrm{Формула Эйлера \footnotemark[1]}} 
+\int_{R^{d}} p(w)cos(w^{T}(x - z)) + i\int_{R^{d}} p(w)cos(w^{T}(x - z))\] 
+\[\xrightarrow{K(x - z) \textrm{ - веществ.}} 
+\textrm{ Комплексная часть = 0} \rightarrow 
+K(x - z) = \int_{R^{d}} p(w)cos(w^{T}(x - z))dw\]
+\[\xrightarrow{ \textrm{Монте-Карло \footnotemark[2]}}
+K(x - z) \approx\{w_j \sim p(w)\}: 
+\frac{1}{n} \sum_{i = 1}^{n} cos w_j^T(x - z)\]
+\[= \frac{1}{n} \sum_{i = 1}^n cos w_j^Tx cos w_j^Tz + sin w_j^Tx sin w_j^Tz\]
+\footnotetext[1]{$e^{ix} = cosx + isinx$}
+\footnotetext[2]{$\int_{a}^{b}f(x)dx = \frac{b - a}{n} \sum_{i = 1}^N f(u_i)$}
+
+\[\tilde{\phi}(x) = \frac{1}{n}(cos w_1^Tx, \ldots, cos w_n^Tx, sin w_1^Tx, \ldots, sin w_n^Tx)\]
+\[K(x - z) = <\tilde{\phi}(x), \tilde{\phi}(z)>\]
+
+Для гауссова ядра:
+
+\[p(w) = \mathcal{N}(0, 1)\]
+
+\subsection{EM алгоритм}
+
+Смесь распределений: 
+
+\[\begin{cases}
+    p(x) = \sum_{k = 0}^{K} \pi_k p_k(x) \\
+    \sum \pi_k = 1    
+\end{cases}
+\]
+
+Вероятностный эксперимент:
+
+Выбираем K из $[\pi_1, \ldots, \pi_K]$, выбираем x из $pi_k(x)$
+
+Z - скрытые переменные
+
+\[Z = \{0, 1\}^K, \sum Z_k = 1\]
+\[p(Z_k = 1) = \pi_k\]
+\[p(z) = \prod_{k = 1}^K \pi_k^{Z_k}\]
+\[p(x \mid Z_k = 1) = p_k(x)\]
+\[p(x \mid z) = \prod_{k = 1}^{K} (p_{k}(x)^{Z_{k}})\]
+\[p(x, z) = p(x \mid z)p(z) = \prod_{k = 1}^{K} (\pi_k p_k(x))^{Z_{k}}\]
+\[p(x) = \sum_{k = 1}^{K} p(x, z = k) = \sum_{k = 1}^{K} \pi_k p_k(x)\]
+
+Вероятностная кластеризация:
+
+\(p_k(x)\) - распределение k-го кластера
+
+\[x \rightarrow (p_1(x), \ldots, p_k(x))\]
+
+Хотим описать X смесью распределений
+
+\[p(x) = \sum_{k = 1}^K \pi_k \phi(x \mid \theta_k), \phi(x \mid \theta_k) \sim \mathcal{N}(\mu, \Sigma), \theta = (\mu, \Sigma)\]
+
+Неполное правдоподобие:
+
+\[ln(P(X \mid \Theta)) = \sum_{i = 1}^{l} log \sum_{k = 1}^K \pi_k \phi(x_i \mid \theta_k) \rightarrow max_{\theta}\]
+
+Логарифм многооптимальная функция - просто оптимизировать ее сложно
+
+Используем функцию полного правдоподобия
+
+\[log(P, X \mid \Theta) = \sum_{i = 1}^{l} log \sum_{k = 1}^{K} (\pi_k \phi(x_i \mid \theta_k))^{Z_k}\]
+\[\sum_{i = 1}^{l}\sum_{k = 1}^{K} Z_{ik}(log\pi_k + log\phi(x_i \mid \theta_k)) \rightarrow \max_{\Theta}\]
+
+Известно аналитическое решение для нормального распределения.
+
+Не знаем $Z_ik$
+
+\[\Theta = (\pi_1, \ldots, \pi_k, \theta_1, \ldots, \theta_k)\]
+
+Используем метод ALS для поиска $Z, \Theta$
+
+\begin{enumerate}
+    \item Оптимизация по скрытым переменным
+    
+    Апостериорное распределение: \(p(Z \mid X, \Theta) = \frac{P(X, Z \mid \Theta)}{p(X \mid \Theta)}\)
+
+    \[Z^{\star} = \argmax_{Z} p(Z \mid X, \Theta)\]
+
+    \item Оптимизировать по $\Theta$
+    
+    \[log p(X, Z^{\star} \mid \Theta) \rightarrow \max_{\Theta}\]
+    \item Повторять до сходимости
+\end{enumerate}
+
+Можно лучше. Не гарантирует сходимости
+
+
+EM-алгоритм - метод обучения моделей со скрытыми переменными
+
+\textbf{EM-алгоритм}
+
+\begin{enumerate}
+    \item E-шаг - вычисляем $p(Z \mid X, \Theta)$ и запоминаем
+    \item M-шаг
+    
+    \[E_{Z \sim p(Z \mid X, \Theta)}log p(X, Z \mid \Theta) = 
+    \sum_{Z} p(Z \mid X, \Theta)log p(X, Z \mid \Theta) 
+    \rightarrow \max_{\Theta}\]
+\end{enumerate}
+
+Вывод EM-алгоритма
+
+\[log p(X \mid \Theta) = Z(q, \Theta) + KL(q \mid \mid p)\]
+
+\[L(q, \Theta) = \sum_{Z} q(Z)log \frac{p(X, Z \mid \Theta)}{q(Z)}\]
+
+\[KL(q \mid \mid p) = -\sum_{Z} q(Z)log \frac{p(Z \mid X, \Theta)}{q(Z)}\]
+
+\[\forall q(Z)\]
+\(L(q, \Theta)\) - нижняя оценка
+
+Берем \(q(Z) = p(Z \mid X, \Theta)\) - получаем E-шаг
+
+\(L(q, \Theta) = \sum_{Z \sim q(Z)} p(Z) log(...)\) - М-шаг
+
+EM-алгоритм дает гарантии на рост правдоподобия
 \end{document}
