@@ -465,6 +465,7 @@ EM-алгоритм - метод обучения моделей со скрыт
 \[KL(q \mid \mid p) = -\sum_{Z} q(Z)log \frac{p(Z \mid X, \Theta)}{q(Z)}\]
 
 \[\forall q(Z)\]
+
 \(L(q, \Theta)\) - нижняя оценка
 
 Берем \(q(Z) = p(Z \mid X, \Theta)\) - получаем E-шаг
@@ -472,4 +473,108 @@ EM-алгоритм - метод обучения моделей со скрыт
 \(L(q, \Theta) = \sum_{Z \sim q(Z)} p(Z) log(...)\) - М-шаг
 
 EM-алгоритм дает гарантии на рост правдоподобия
+
+\section{Семинар 3: EM алгоритм}
+
+На М-шаге:
+
+\[\Theta = \argmax_{\Theta} E_{q} log p(X, Z \mid \Theta)\]
+
+\[log p(X \mid \Theta_{i + 1}) > log p(X \mid \Theta_{i})\]
+
+Шумная разметка изображений 100 экспертами
+
+i - изображение, j - эксперт: $l_{ij} \in \{0, 1\}$
+
+Истинный класс для картинки $Z_i \in \{0, 1\}$
+
+Дополнительные параметры:
+
+\[\beta_i \in (0, +\infty), \alpha_j \in \mathcal{R}\]
+
+$\beta$ - сложность изображения, $\alpha$ - уровень эксперта
+
+\[p(l_{ij} = Z_i \mid Z_i, \alpha_j, \beta_i) = \sigma(\alpha_j \beta_i) 
+= \frac{1}{1 + e^{-\alpha_j \beta_i}}\]
+
+\[p(Z_i, l_i \mid \alpha, \beta) = 
+p(Z_i) \prod_{j} p(l_ij \mid Z_i, \alpha_j, \beta_i)\]
+
+\(p(Z_i)\)?
+
+\begin{enumerate}
+    \item Задать как 1/2, т.к. имеем два класса
+    \item Задать как баланс классов
+    \item Найти как параметр \(p(1) = \pi\)
+\end{enumerate}
+
+\[p(Z, l \mid \alpha, \beta) = 
+\prod_i Z_i \prod_{j} p(l_ij \mid Z_i, \alpha_j, \beta_i)\]
+
+Необходимо свести вероятность $l_{ij} = Z_i$ к вероятности $l_{ij}$
+
+\[p(l_{ij} = Z_i \mid \ldots) = \sigma(\alpha\beta)\]
+
+\[p(l_{ij} \neq Z_i \mid \ldots) = 1 - \sigma(\alpha\beta)\]
+
+Бернулли:
+
+\[p(l \mid \ldots) = p(l = Z \mid \ldots)^{[l = Z]} 
+\times p(l \neq Z \mid \ldots)^{[l \neq Z]} =
+\sigma(\alpha\beta)^{[l = Z]}\sigma(-\alpha\beta)^{[l \neq Z]}\]
+
+\[p(Z_i, l_{ij} \mid \ldots) = 
+p(Z_i)\prod_{j}\sigma(\alpha\beta)^{[l = Z]}
+\sigma(-\alpha\beta)^{[l \neq Z]}\]
+
+\textbf{Е-шаг:}
+
+\[q^{\star}(Z_i) = p(Z_i \mid l_{ij}, \alpha_j, \beta_i) 
+\xrightarrow{\textrm{Теорема Байеса}} \frac{p(Z_i, l_{ij}\mid\alpha,\beta)}
+{p(l_{ij}\mid\alpha,\beta)} = \frac{p(Z_i, l_{ij}\mid\alpha,\beta)}
+{\sum_{t} p(t, l_{ij}\mid\alpha,\beta)}\]
+
+\[q^{\star}(Z) = \frac{p(Z_i)
+\prod_{j}\sigma(\alpha\beta)^{[l = Z]}
+\sigma(-\alpha\beta)^{[l \neq Z]}}
+{\sum_{t \in \{0, 1\}} p(t_i)
+\prod_{j}\sigma(\alpha\beta)^{[l = t]}
+\sigma(-\alpha\beta)^{[l \neq t]}} 
+= \frac{\gamma^{Z_i}_i}{\gamma^{0}_i + \gamma^{1}_i} = 
+\frac{e^{log\gamma^{Z_i}_i}}
+{e^{log\gamma^{0}_i + \gamma^{1}_i}}\]
+
+\textbf{M-шаг:}
+
+\[E_{q^{\star}} log p(Z, l \mid \alpha, \beta) 
+\rightarrow \max_{\alpha, \beta}\]
+
+\[E_{q^{\star}} log \prod_i p(Z, l \mid \alpha, \beta) = 
+\sum_i E_{q^{\star}_i} logp(Z, l \mid \alpha, \beta) = \]
+\[=\sum_i E_{q^{\star}_i}[logp(Z_i) + 
+\sum_j [l_{ij} = Z_i] log \sigma(\alpha\beta) + 
+[l_{ij} \neq Z_i] log \sigma(-\alpha\beta)] 
+\rightarrow \max_{\alpha, \beta}\]
+
+\[\sum_i \sum_j \sum_{t \in \{0, 1\}} 
+q_i^{\star}(t)[[l_{ij} = t] log \sigma(\alpha\beta) + 
+[l_{ij} \neq t] log \sigma(-\alpha\beta)]\]
+
+Оптимизируем:
+
+\[\frac{\partial}{\partial x} log\sigma(x) = \sigma(-x)\]
+
+\[\frac{\partial}{\partial \alpha}
+log\sigma(\alpha\beta)= 
+\beta\sigma(-\alpha\beta)\]
+
+\[\frac{\partial}{\partial \alpha} \log\sigma(-\alpha\beta) = 
+-\beta\sigma(\alpha\beta)\]
+
+\[\frac{\partial}{\partial \alpha} E_{q^{\star}} 
+log p(Z, l \mid \alpha, \beta) = 
+\sum_i \sum_t q_i^{\star} \beta ([l = t]\sigma(-\alpha\beta)) - 
+[l \neq t]\sigma(\alpha\beta))\]
+
+По $\beta$ аналогично
 \end{document}
