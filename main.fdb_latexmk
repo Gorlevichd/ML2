@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1625130609 "/home/dan/study/ML2/main.tex" "main.pdf" "main" 1625130609
+["pdflatex"] 1625155590 "/home/dan/study/ML2/main.tex" "main.pdf" "main" 1625155590
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/labx1200.tfm" 1622978288 3308 eee81981029f67083258db36df06e523 ""
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/labx1440.tfm" 1622978294 3304 6a543c07045572737981351171e0505e ""
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/labx1728.tfm" 1622978300 3312 d199be9bd555944e2403193d58a0256a ""
@@ -13,7 +13,7 @@
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/larm1728.tfm" 1622978297 3252 92d08740ce00199d6cf9ff4aaada81d1 ""
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/larm2074.tfm" 1624975051 3264 03c2b9e4787a40d3b9c197c38b93b558 ""
   "/home/dan/.texlive2020/texmf-var/fonts/tfm/lh/lh-t2a/lati1200.tfm" 1622978305 3512 f3a56cfe95a159371df20f73d1eb107d ""
-  "/home/dan/study/ML2/main.tex" 1625130608 24730 5312cdea7f63fa091c4db286d4b7f42f ""
+  "/home/dan/study/ML2/main.tex" 1625155589 31637 60c79653606e84b383c82f4414605e8e ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc" 1136849721 3141 82d5616418ed8d5de703b3951bedecb4 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -112,9 +112,9 @@
   "/usr/share/texlive/texmf-dist/tex/latex/tools/bm.sty" 1580683321 12671 ace2aac118748ea10d1717448ecafbed ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1621882710 39615 33f7d51cf394547e122c9714408659b1 ""
   "/usr/share/texlive/texmf-var/web2c/pdftex/pdflatex.fmt" 1622975401 2430978 6575ae7f74ef5fe7f099d5166b008ddb ""
-  "main.aux" 1625130609 869 f32c488633ebb54d10e735d4b62ab3f5 "pdflatex"
-  "main.tex" 1625130608 24730 5312cdea7f63fa091c4db286d4b7f42f ""
+  "main.aux" 1625155590 1093 aa82075a9742c325395117399ec71948 "pdflatex"
+  "main.tex" 1625155589 31637 60c79653606e84b383c82f4414605e8e ""
   (generated)
-  "main.log"
   "main.pdf"
+  "main.log"
   "main.aux"

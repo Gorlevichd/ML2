@@ -6,6 +6,7 @@
 \usepackage{statmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\setlength\parindent{0pt}
 
 \title{МО2}
 \date{March 2021}
@@ -482,7 +483,8 @@ EM-алгоритм дает гарантии на рост правдоподо
 
 \[log p(X \mid \Theta_{i + 1}) > log p(X \mid \Theta_{i})\]
 
-Шумная разметка изображений 100 экспертами
+
+Задача: \textbf{Шумная разметка изображений 100 экспертами}
 
 i - изображение, j - эксперт: $l_{ij} \in \{0, 1\}$
 
@@ -577,4 +579,186 @@ log p(Z, l \mid \alpha, \beta) =
 [l \neq t]\sigma(\alpha\beta))\]
 
 По $\beta$ аналогично
+
+\section{ЕМ алгоритм 2}
+
+\textbf{Свойства}
+
+\begin{enumerate}
+    \item \(logP(X \mid \Theta^{new}) \geq logP(X \mid \Theta^{old})\)
+    \item Если $\Theta_{i}$ не является станционарной точкой l, 
+    то $\Theta_{i + 1} \neq \Theta_{i}$
+
+    \[\nabla l(\Theta_i) \neq 0\]
+    \[logP(X \mid \Theta_i) = L(q \mid \Theta_i) + 
+    KL(q(\Theta_i) \mid\mid p)\]
+    \[KL = 0 \rightarrow 
+    \nabla_{\Theta}KL(q( \mid \mid p) = 0 \rightarrow 
+    \nabla L(q \mid \Theta_i) \neq 0 \rightarrow\]
+    \[\textrm{На М шаге точно сдвинемся и поменяем }\Theta\]
+\end{enumerate}
+
+\textbf{Теорема}
+
+\[Q(\Theta, \Theta^{Old}) = 
+E_{z \sim p(Z \mid X, \Theta^{Old})}
+logP(Z, X \mid \Theta^{Old})\]
+
+Пусть Q непрерывна по обоим аргументам
+
+Тогда:
+
+\begin{enumerate}
+    \item Все предельные точки последовательности $\Theta$
+    являются станционарными точками $logP(X \mid \Theta)$
+    \item $logP(X \mid \Theta)$ монотонно сходится к 
+    $logP(X \mid \Theta^{\star})$ - одной из станционарных точек 
+\end{enumerate}
+
+Отвлеченная штука:
+
+X - обучающая выборка
+
+Хотим подогнать под нее распределение $p(x \mid \theta)$
+
+Эмпирическое распределение:
+
+\[\hat{p}(x \mid X) = \frac{1}{l}\sum^{l}_{i = 1}[x = x_i]\]
+
+Минимизировать KL-дивергенцию между эмпирическим и 
+параметрическим распределением.
+
+\[KL(\hat{p}(x \mid X) \mid \mid p(x \mid \theta)) 
+\rightarrow min_{\theta}\]
+
+\[= \sum_{i = 1}^{l} 
+\frac{1}{l}log  \frac{1 / l}{p(x_i \mid \theta)} = 
+\sum_{i = 1}^{l} 
+\frac{1}{l}log(1 / l) - logp(x_i \mid \theta) \rightarrow \]
+\[\sum_{i = 1}{l} logP(x_i \mid \theta) \rightarrow \max_{\theta}\]
+
+\section{Поиск аномалий}
+
+В обучении есть только один класс - неаномальный, 
+надо научится отделять от него аномалии
+
+\textbf{Несбалансированная классификация}
+\begin{enumerate}
+    \item (Under/over)sampling - взвешенный 
+    функционал ошибки
+    \item Синтетические объекты
+    \begin{enumerate}
+        \item SMOTE
+        \begin{enumerate}
+            \item Выбираем объекты $X_1$ из минорного класса,
+            выбираем случаный объект из k ближайших соседей
+            тоже из минорного класса $X_2$
+            \item Новый объект: \(X = \alpha X_1 + (1 - \alpha)X_2, 
+            \alpha \sim U(0, 1)\)
+            \item Предполагает существование объектов между $X_1, X_2$
+        \end{enumerate}
+    \item Аугментации
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Одноклассовая классификация}
+\begin{enumerate}
+    \item Бенчмарк: Классификация X на нормальные и аномальные, 
+    стандартные метрики
+    \item Статистический подход - описываем плотностью $p(x)$ для
+    новых объектов смотрим на вероятность - $p(x)$ - novelty score.
+
+    Откуда брать p
+    \begin{enumerate}
+        \item Параметрический подход:
+        
+        \[\sum_{i = 1}^l logP(x \mid \theta) 
+        \rightarrow \max_{\theta}\]
+        \item Непараметрический подход:
+        \begin{enumerate}
+            \item d = 1:
+            
+            \[p(x) = \lim_{h \to 0} 
+            \frac{1}{2h}P(\xi \in [x - h, x + h])\]
+
+            \[\hat{p}(x) = \frac{1}{2h}\frac{1}{l} 
+            \sum_{i = 1}^l \mid [x_i - x \mid < h] =\]
+
+            \[= \frac{1}{lh} \sum_{i = 1}^l 
+            \frac{1}{2}[\frac{\mid x_i - x \mid}{h} < 1]\]
+
+            Можно заменить на более гладкую плотность:
+
+            \[\frac{1}{lh} \sum_{i = 1}^l 
+            \frac{1}{2}K(\frac{x_i - x}{h})]\]
+
+            \begin{enumerate}
+                \item $K(z) = K(-z)$
+                \item $\int_{\mathcal{R}} K(z)dz = 1$
+                \item $K(z) \geq 0$
+                \item Не возрастает при $Z > 0$
+            \end{enumerate}
+            \item d > 1:
+            
+            \[\hat{p}(x) = \frac{1}{lV(h)} \sum_{i = 1}^l 
+            K(\frac{\rho(x_i, x)}{h})\]
+
+            \[V(h) = \int K(\frac{\rho(x_i, x)}{h}) dx\]
+
+            h - гиперпараметр
+        \end{enumerate}
+    \end{enumerate}
+
+    \item Метрический подход
+    
+    x - аномалия, если он далеко от других объектов
+
+    Смотреть на количество объектов в $\epsilon$-окрестности?
+
+    Плохой подход:
+
+    Надо смотреть не на единую окрестность, а смотреть на 
+    плотность объектов в отдельной точке и на основе нее 
+    оценивать окрестность
+
+    \textbf{Определения:}
+
+    \begin{enumerate}
+        \item $\rho_k(x)$ - такое минимальное число n, что:
+        
+        Для $\geq$ k объектов из $X/\{x\}$
+        выполнено $\rho(x, z) \leq n$
+
+        Для $\leq$ k-1 объектов выполнено $\rho(x, z) < n$
+
+        По сути: расстоение до k-го ближайшего соседа
+
+        \item К-окрестность: 
+        
+        \[\mathcal{N}_{k}(x) = \{z \in X/\{x\}\}: 
+        \rho(x, z) \leq \rho_k(x)\]
+
+        \item Reachibility Distance:
+        
+        \[rd_k(x, z) = max(\rho_k(z), \rho(x, z))\]
+
+        Позволяет сгладить расстояние между объектами
+
+        \item Local Reachibility Distance
+        
+        \[lrd_k(x) = \frac{1}{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
+        \sum_{z \in \mathcal{N}_{k}(x)}rd_k(x, z)}\]
+
+        Обращенное среднее расстояние от x до ближайших соседей
+
+        \item Local Outlier Factor
+        
+        \[LOF_k(x) = \frac{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
+        \sum_{z \in \mathcal{N}_{k}(x)}lrd_k(z)}
+        {lrd_k(x)}\]
+
+        Отлавливаем объекты у которых соседи находятся в плотных
+        областях, но сами они находятся далеко от соседей
+    \end{enumerate}
+\end{enumerate}
 \end{document}
