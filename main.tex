@@ -6,7 +6,18 @@
 \usepackage{statmath}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{listings}
 \setlength\parindent{0pt}
+\catcode`@=11
+\def\caseswithdelim#1#2{\left#1\,\vcenter{\normalbaselines\m@th
+  \ialign{\strut$##\hfil$&\quad##\hfil\crcr#2\crcr}}\right.}% you might like it without the \strut
+\catcode`@=12
+%
+\def\bcases#1{\caseswithdelim[{#1}}
+\def\vcases#1{\caseswithdelim|{#1}}
+%
+
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
 
 \title{МО2}
 \date{March 2021}
@@ -14,6 +25,8 @@
 \begin{document}
 
 \maketitle
+
+\part{Лекции}
 
 \section{Ядровые методы}
 
@@ -218,120 +231,6 @@
     \end{enumerate}
 \end{enumerate}
 
-\subsection{Семинар: Задачи условной оптимизации}
-
-\textit{Учебник: Boyd, Convex Optimization}
-
-\[\begin{cases}
-    f_0(x) \rightarrow min_{x \in R^d} \\
-    f_i(x) \leq 0, i = 1, \ldots, m \\
-    h_i(x) = 0, i = 1, \ldots, p
-\end{cases}\]
-
-\[G(x) = f_0(x) + \sum_{i = 1}^m I_{-}(f_i(x)) + \sum_{i = 1}^p I_0(h_i(x)) \rightarrow min\]
-
-Штрафы за нарушение ограничений:
-
-\[I_{-}(z) = \begin{cases}
-    0, z \leq 0 \\
-    + \infty, z > 0 
-\end{cases}\]
-
-\[I_{0} = \begin{cases}
-    0, z = 0 \\
-    + \infty, z \neq 0 
-\end{cases}\]
-
-\(G(x) \rightarrow \infty\) в точках где не выполняется условие
-
-Проблема: Недифференцируема
-
-Заменяем функции на их аппроксимации ($\hat{I}_{-} = ax$)
-
-Лагранжиан:
-
-\[L(x, \lambda, \nu) = f_0(x) + \sum_{i = 1}^m \lambda_i f_i(x) + \sum_{i = 1}^p \nu_i h_i(x)\]
-\[\lambda_i \geq 0\]
-
-x - прямые (primal) переменные
-
-$\lambda, \nu$ - двойственные переменные
-
-\textbf{Двойственная функция}
-
-\[g(\lambda, \nu) = \inf_{x} L(x, \lambda, \nu)\]
-
-\begin{itemize}
-    \item Двойственная функция всегда вогнутая
-    \item Дает нижнюю оценку на минимум функции в прямой задаче
-    
-    \(x^{\prime}\) - допустимая точка (все условия выполнены)
-
-    \[L(x^{\prime}, \lambda, \nu) = f_0(x^{\prime}) + 
-    \sum_{i = 1}^m \lambda_i f_i(x^{\prime}) + \sum_{i = 1}^p \nu_i h_i(x^{\prime})\]
-    \[f_i(x) \leq 0, h_i(x) = 0 \rightarrow 
-    L(x^{\prime}, \lambda, \nu) \leq f_0(x^{\prime})\]
-    \[\inf_x L(x, \lambda, \nu) \leq \inf_{x^{\prime}} 
-    L(x', \lambda, \nu) \leq \inf_{x^{\prime}} f_0(x')\]
-
-    $\uparrow$ - это и есть решение исходной задачи
-
-    \[g(\lambda, \nu) \leq f_0(x_{\star})\]
-
-    \[g(\lambda, \nu) \rightarrow \max_{\lambda, \nu}, \lambda_i \geq 0\]
-
-    \(\lambda^{\star}, \nu^{\star}\) - решение двойственной задачи
-
-    \(g(\lambda^{\star}, \nu^{\star}) \leq f_0(x_{*})\) - слабая двойственность
-
-    \(g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\) - сильная двойственность
-
-    \underline{Достаточное условие сильной двойственности (Условие Слейтера)}
-
-    \begin{itemize}
-        \item Задача выпуклая:
-        
-        \(f_0, f_1, \ldots, f_m\) - выпуклые
-
-        \(h_1, \ldots, h_p\) - линейные
-        \item \(\exists x^{\prime}\), что все ограничения выполнены строго
-    \end{itemize}
-\end{itemize}
-
-Пусть имеет место сильная двойственность:
-
-\[g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\]
-
-\[g(\lambda^{\star}, \nu^{\star}) = \inf_x(f_0(x) + 
-\sum \lambda^{\star} f_i(x) + \sum \nu^{\star} h_i(x))
-\leq f_0(x_{\star}) + 
-\sum \lambda^{\star} f_i(x_{\star}) + \sum \nu^{\star} h_i(x_{\star}) 
-\leq f_0(x_{\star})\]
-
-Все неравенства являются равенствами:
-
-\begin{itemize}
-    \item Если решить безусловную задачу при подставлении $\lambda^{\star}, \nu^{\star}$,
-    то получим решение прямой задачи
-    \item \(\lambda_i^{\star}f_{i}(x^{\star}) = 0\) - условие дополняющей нежесткости
-\end{itemize}
-
-\textbf{Теорема Куна-Такера}
-
-Необходимые условия для 
-
-\[
-\begin{cases}
-    \nabla_x L(x_{\star}, \lambda^{\star}, \nu^{\star}) = 0 \\
-    f_i(x) \leq 0 \\
-    h_i(x) = 0 \\
-    \lambda_i \geq 0 \\
-    \lambda_i f_i(x_{\star}) = 0 \\
-    \textrm{Сильная двойственность}
-\end{cases}
-\leftrightarrow x_{\star}, \lambda^{\star}, \nu^{\star} \textrm{решения}
-\]
-
 \section{Аппроксимации ядер, EM алгоритм}
 
 Скалярные произведения тяжело хранить из-за
@@ -475,6 +374,750 @@ EM-алгоритм - метод обучения моделей со скрыт
 
 EM-алгоритм дает гарантии на рост правдоподобия
 
+\section{ЕМ алгоритм 2}
+
+\textbf{Свойства}
+
+\begin{enumerate}
+    \item \(logP(X \mid \Theta^{new}) \geq logP(X \mid \Theta^{old})\)
+    \item Если $\Theta_{i}$ не является станционарной точкой l, 
+    то $\Theta_{i + 1} \neq \Theta_{i}$
+
+    \[\nabla l(\Theta_i) \neq 0\]
+    \[logP(X \mid \Theta_i) = L(q \mid \Theta_i) + 
+    KL(q(\Theta_i) \mid\mid p)\]
+    \[KL = 0 \rightarrow 
+    \nabla_{\Theta}KL(q( \mid \mid p) = 0 \rightarrow 
+    \nabla L(q \mid \Theta_i) \neq 0 \rightarrow\]
+    \[\textrm{На М шаге точно сдвинемся и поменяем }\Theta\]
+\end{enumerate}
+
+\textbf{Теорема}
+
+\[Q(\Theta, \Theta^{Old}) = 
+E_{z \sim p(Z \mid X, \Theta^{Old})}
+logP(Z, X \mid \Theta^{Old})\]
+
+Пусть Q непрерывна по обоим аргументам
+
+Тогда:
+
+\begin{enumerate}
+    \item Все предельные точки последовательности $\Theta$
+    являются станционарными точками $logP(X \mid \Theta)$
+    \item $logP(X \mid \Theta)$ монотонно сходится к 
+    $logP(X \mid \Theta^{\star})$ - одной из станционарных точек 
+\end{enumerate}
+
+Отвлеченная штука:
+
+X - обучающая выборка
+
+Хотим подогнать под нее распределение $p(x \mid \theta)$
+
+Эмпирическое распределение:
+
+\[\hat{p}(x \mid X) = \frac{1}{l}\sum^{l}_{i = 1}[x = x_i]\]
+
+Минимизировать KL-дивергенцию между эмпирическим и 
+параметрическим распределением.
+
+\[KL(\hat{p}(x \mid X) \mid \mid p(x \mid \theta)) 
+\rightarrow min_{\theta}\]
+
+\[= \sum_{i = 1}^{l} 
+\frac{1}{l}log  \frac{1 / l}{p(x_i \mid \theta)} = 
+\sum_{i = 1}^{l} 
+\frac{1}{l}log(1 / l) - logp(x_i \mid \theta) \rightarrow \]
+\[\sum_{i = 1}{l} logP(x_i \mid \theta) \rightarrow \max_{\theta}\]
+
+\section{Поиск аномалий}
+
+В обучении есть только один класс - неаномальный, 
+надо научится отделять от него аномалии
+
+\textbf{Несбалансированная классификация}
+\begin{enumerate}
+    \item (Under/over)sampling - взвешенный 
+    функционал ошибки
+    \item Синтетические объекты
+    \begin{enumerate}
+        \item SMOTE
+        \begin{enumerate}
+            \item Выбираем объекты $X_1$ из минорного класса,
+            выбираем случаный объект из k ближайших соседей
+            тоже из минорного класса $X_2$
+            \item Новый объект: \(X = \alpha X_1 + (1 - \alpha)X_2, 
+            \alpha \sim U(0, 1)\)
+            \item Предполагает существование объектов между $X_1, X_2$
+        \end{enumerate}
+    \item Аугментации
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{Одноклассовая классификация}
+
+Бенчмарк: Классификация X на нормальные и аномальные, 
+стандартные метрики
+
+\begin{enumerate}
+    \item Статистический подход - описываем плотностью $p(x)$ для
+    новых объектов смотрим на вероятность - $p(x)$ - novelty score.
+
+    Откуда брать p
+    \begin{enumerate}
+        \item Параметрический подход:
+        
+        \[\sum_{i = 1}^l logP(x \mid \theta) 
+        \rightarrow \max_{\theta}\]
+        \item Непараметрический подход:
+        \begin{enumerate}
+            \item d = 1:
+            
+            \[p(x) = \lim_{h \to 0} 
+            \frac{1}{2h}P(\xi \in [x - h, x + h])\]
+
+            \[\hat{p}(x) = \frac{1}{2h}\frac{1}{l} 
+            \sum_{i = 1}^l \mid [x_i - x \mid < h] =\]
+
+            \[= \frac{1}{lh} \sum_{i = 1}^l 
+            \frac{1}{2}[\frac{\mid x_i - x \mid}{h} < 1]\]
+
+            Можно заменить на более гладкую плотность:
+
+            \[\frac{1}{lh} \sum_{i = 1}^l 
+            \frac{1}{2}K(\frac{x_i - x}{h})]\]
+
+            \begin{enumerate}
+                \item $K(z) = K(-z)$
+                \item $\int_{\mathcal{R}} K(z)dz = 1$
+                \item $K(z) \geq 0$
+                \item Не возрастает при $Z > 0$
+            \end{enumerate}
+            \item d > 1:
+            
+            \[\hat{p}(x) = \frac{1}{lV(h)} \sum_{i = 1}^l 
+            K(\frac{\rho(x_i, x)}{h})\]
+
+            \[V(h) = \int K(\frac{\rho(x_i, x)}{h}) dx\]
+
+            h - гиперпараметр
+        \end{enumerate}
+    \end{enumerate}
+
+    \item Метрический подход
+    
+    x - аномалия, если он далеко от других объектов
+
+    Смотреть на количество объектов в $\epsilon$-окрестности?
+
+    Плохой подход:
+
+    Надо смотреть не на единую окрестность, а смотреть на 
+    плотность объектов в отдельной точке и на основе нее 
+    оценивать окрестность
+
+    \textbf{Определения:}
+
+    \begin{enumerate}
+        \item $\rho_k(x)$ - такое минимальное число n, что:
+        
+        Для $\geq$ k объектов из $X/\{x\}$
+        выполнено $\rho(x, z) \leq n$
+
+        Для $\leq$ k-1 объектов выполнено $\rho(x, z) < n$
+
+        По сути: расстоение до k-го ближайшего соседа
+
+        \item К-окрестность: 
+        
+        \[\mathcal{N}_{k}(x) = \{z \in X/\{x\}\}: 
+        \rho(x, z) \leq \rho_k(x)\]
+
+        \item Reachibility Distance:
+        
+        \[rd_k(x, z) = max(\rho_k(z), \rho(x, z))\]
+
+        Позволяет сгладить расстояние между объектами
+
+        \item Local Reachibility Distance
+        
+        \[lrd_k(x) = \frac{1}{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
+        \sum_{z \in \mathcal{N}_{k}(x)}rd_k(x, z)}\]
+
+        Обращенное среднее расстояние от x до ближайших соседей
+
+        \item Local Outlier Factor
+        
+        \[LOF_k(x) = \frac{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
+        \sum_{z \in \mathcal{N}_{k}(x)}lrd_k(z)}
+        {lrd_k(x)}\]
+
+        Отлавливаем объекты у которых соседи находятся в плотных
+        областях, но сами они находятся далеко от соседей
+    \end{enumerate}
+
+    \item Model-based AD
+    \begin{enumerate}
+        \item Есть примеры нормальных объектов
+        \item Хотим найти наименьшую область,
+        содержащую все объекты
+
+        \[a(x) = sign(<w, x> - \rho)\]
+
+        Идея:
+
+        Отделяем X от начала координат с помощью a()
+
+        \[\begin{cases}
+            \frac{1}{2}\mid\mid w \mid\mid^2 + 
+            \frac{1}{\nu \ell}\sum \xi_i - \rho
+            \rightarrow \min_{w, \xi, \rho} \\
+            <w, x_i> \geq \rho - \xi_i, \forall i \\
+            \xi_i \geq 0
+        \end{cases}\]
+        
+        $\nu$ - гиперпараметр
+
+        $\sum [a(x) = -1] \leq \nu$
+
+        Требования к решению:
+
+        \begin{enumerate}
+            \item Отделить как можно больше объектов от 0.
+            За это отвечает $\sum \xi_i$
+            \item Максимизировать отступ. 
+            За это отвечает $\mid\mid w \mid\mid^{2}$
+            \item Гиперплоскость как можно дальше от нуля.
+            За это отвечает $\rho$
+        \end{enumerate}
+
+        \[a(x) = sign(<w, x> - \rho)\]
+
+        Можно записать двойственную задачу:
+
+        \[
+        \begin{cases}
+            \frac{1}{2}\sum \lambda_i\lambda_jK(x_i, x_j)
+            \rightarrow \min_{\lambda} \\
+            0 < \lambda_i \leq \frac{1}{\nu \ell} \\
+            \sum \lambda_i = 1
+        \end{cases}    
+        \]
+
+        С помощью ядра получаем компактную область
+    \end{enumerate}
+
+    \item Random projections
+    \begin{enumerate}
+        \item Isolation Forest
+        
+        Строим жадное дерево со случайными предикатами по
+        случайным признакам
+
+        Если в каком-то листе оказывается 1 объект - прекращаем
+        разбиение
+
+        Аномальные объекты рано получают свой лист
+
+        \textit{Обучение:}
+
+        Строим лес из N деревьев, в каждом 
+        случайные предикаты. Максимальная глубина
+        $D = log_2 \ell$
+
+        \textit{Применение:}
+
+        $h_n(x)$ - оценка аномальности x с точки зрения
+        n дерева
+
+        $K_n(x)$ - глубина листа в который попадает x в 
+        n дереве
+
+        Нужно сделать поправку на количество объектов в листе
+
+        \[h_n(x) = K_n(x) + C(m_n(x))\]
+
+        \[C(m) = 2H(m - 1) - 2\frac{m - 1}{m}\]
+
+        \[H(i) \approx lni + 0.577\]
+
+        Можно использовать и $log_2(m)$
+
+        \[a(x) = 2^{-\frac{\frac{1}{N}\sum_{n = 1}^{N}h_n(x)}
+        {C(l)}}\]
+
+        $C(l)$ - средняя длина пути
+
+        \item Extra Random Trees
+        
+        Берем индикатор попадания в листья 
+        и строим линейную модель
+    \end{enumerate}
+\end{enumerate}
+
+\textit{Как измерять качество:}
+
+\begin{enumerate}
+    \item Anomaly detection
+    
+    Есть примеры аномалий, но мало данных
+
+    Смотрим какое количество аномалий модель угадывает
+
+    \item Novelty detection
+    
+    Аномалии не даны, 
+    качество модели оценивается глазами
+\end{enumerate}
+
+\section{Обучение без учителя}
+
+\begin{enumerate}
+    \item Кластеризация: DBScan, 
+    Спектральная классификация,
+    Affinity Propagation
+    \item Внешние метрики качества кластеризации
+    \item Тематическое моделирование
+\end{enumerate}
+
+\textbf{K-means:}
+
+Основная проблема - ищет сферические кластеры
+
+\subsection{DBScan}
+
+Типы объектов:
+
+\begin{enumerate}
+    \item Ядровые:
+    
+    В $\epsilon$-окрестности находится N объектов
+
+    \item Пограниченые объекты:
+    
+    Достижимы из ядровых, находится в 
+    $\epsilon$-окрестности ядрового
+
+    \item Выбросы:
+    
+    Все остальные
+\end{enumerate}
+
+Псевдокод:
+
+\begin{lstlisting}
+    K = 0 #Num clasters
+    rho #metric
+    epsilon, N #hyperparam
+    for i = 1 ... l:
+        if label(x[i]) != 0:
+            continue
+        #point neighborhood
+        U = {x in X | rho(x[i], x[j] <= epsilon)}
+        if |U| < N:
+            label(x[i]) = noise
+            continue
+        K++ # found new claster if |U| > N
+        label(x[i]) = K
+        U = U \ {x[i]}
+        for x[j] in U:
+            if label(x[j]) = noise:
+                label(x[j]) = K
+            if label(x[j]) != 0:
+                continue
+            label(x[j]) = K
+            #point neighborhood
+            R = {xm in X | rho(x[m], x[j]) < epsilon}
+            if |R| >= N:
+                #new core object neighborhood included in U
+                U = U & R
+\end{lstlisting}
+
+Преимущества:
+
+\begin{enumerate}
+    \item Находит кластеры сложной формы
+    \item Находит выбросы
+    \item Быстрый
+    \item Не надо задавать число кластеров
+\end{enumerate}
+    
+Недостатки:
+
+\begin{enumerate}
+    \item Проблемы если кластеры разной плотности
+    \item Проблемы с точками на краях
+    \item Не работает если кластеры характеризуются неплотность
+    \item Не параллелится
+\end{enumerate}
+
+\subsection{Иерархическая кластеризация}
+
+Цель: Найти кластерную структуру
+
+Визуализировать разную структуру кластеров при разном 
+их количестве
+
+\textit{Агломеративная кластеризация}
+
+Начинаем с того, что каждый объект является кластером
+
+Псевдокод:
+
+\begin{lstlisting}
+    C = {{x[1]}, {x[2]}, ..., {x[l]}}
+    for n = 2, ..., l:
+        G, H = argmin rho(G, H) #find nearest clasters
+        C = (C \ {G, H}) U {G U H}    
+\end{lstlisting}
+
+Функция расстояния между кластерами $\rho$:
+
+\begin{enumerate}
+    \item Single Linkage:
+    \[\rho_{sl}(G, H) = 
+    \min_{x_i \in G, x_j \in H}\rho(x_i, x_j)\]
+
+    Чувствителен к выбросам
+
+    Главная проблема: Chaining
+
+    Алгоритм подцепляет отдельные объекты, а не кластеры
+
+    Дендрограмма - картинка присоединения объектов
+
+    \item Complete linkage
+    
+    \[\rho_{cl}(G, H) = 
+    \max_{x_i \in G, x_j \in H}\rho(x_i, x_j)\]
+
+    Кластеры не будут компактными
+
+    \item Group Average
+    
+    \[\rho_{ga}(G, H) = \frac{1}{\mid G \mid \mid H \mid} 
+    \sum_{x_i \in G, x_j \in H}\rho(x_i, x_j)\]
+\end{enumerate}
+
+\subsection{Графовая кластеризация}
+
+G = (X, E)
+
+E - ребра:
+
+\begin{enumerate}
+    \item Полный граф - все вершины связаны
+     
+    $w_{ij} = exp(-\frac{\norm{x_i - x_j}^2}{2 \sigma^{2}})$
+    \item KNN-граф:
+    
+    $w_ij \neq 0 \Leftrightarrow x_i, x_j$ ближайшие соседи
+    
+    \item $\epsilon$-граф:
+    
+    $w_ij \neq 0 \Leftrightarrow \rho(x_i, x_j) \leq \epsilon$ 
+\end{enumerate}
+
+\textit{Поиск решение}
+
+\begin{enumerate}
+    \item Найти связные компоненты (для 3его варианта)
+    
+    Тупой метод
+    \item Минимальное остовное дерево (Алгоритм Краскала)
+    \begin{enumerate}
+        \item Начинаем с отдельных вершин
+        \item Сливаем два кластера с максимальным ребром между ними
+        \item Повторить пока не будет K кластеров
+        \item Это агломеративная кластеризация с sl
+        \item Решает задачу:
+        
+        \[\max \min_{x_i \in G, x_j in H} \rho(x_i, x_j)\]
+    \end{enumerate}
+    \item Спектральная кластеризация
+    
+    \[A, B \subset X, A \cap B = \emptyset\]
+    \[W(A, B) = \sum_{x_i \in A, x_j \in B} w_ij\]
+    \[X = A_1 \cup A_2 \cup \ldots A_k\]
+
+    Ошибка кластеризации:
+
+    \[\textrm{Ratio Cut}(A_1, \ldots, A_k) = 
+    \frac{1}{2}\sum_{i = 1}^K \frac{w(A_i, \bar{A}_i)}
+    {\mid A_i \mid} \rightarrow \min_{A_i, \ldots, A_k} (\star)\]
+    \[\bar{A}_i = X \setminus A_i\]
+
+    Хотим, чтобы ребра между кластерами были как можно менее
+    значимы $\rightarrow$ Каждый кластер должен быть изолированным
+
+    $K = 2 \rightarrow$ Задача поиска максимального потока
+
+    $K > 2 \rightarrow$ NP-полная задача
+
+    \rule{\linewidth}{0.5pt}
+
+    $G = (X, E)$
+    
+    $d_i = \sum_{j = 1}{d} w_ij$ - сумма ребер, 
+    которые с ней связаны
+
+    $D = diag(d_1, \ldots, d_l)$
+
+    $L = D - W$, W - матрица смежности, L - \textbf{лаплассиан}
+
+    \textit{Свойства лаплассиана}
+
+    \begin{enumerate}
+        \item \[f \in R^{d}\]
+        \[f^TLf = \frac{1}{2}\sum_{i, j = 1}^l 
+        w_{ij}(f_i - f_j)^2\]
+        \item L - симметричная
+        \item L - неотрицательно определенная
+    \end{enumerate}
+
+    \textbf{Теорема}
+
+    \begin{enumerate}
+        \item Кратность $\lambda = 0$ у L равна
+        числу компонент связности графа
+        
+        Кратность:
+        
+        \begin{enumerate}
+            \item Собственные значения: $Ax = \lambda x$
+            \item $det(A - \lambda I) = 0 \rightarrow \lambda_i$
+            \item $\lambda_i$ - решениe
+            \item ${\lambda_i}, \forall i$ - спектр графа
+            \item Характеристическое уравнение выражаем в виде
+            характеристического многочлена и раскладываем его
+            в виде решений
+
+            \[P_A(\lambda) = 
+            (-1)^{n}\prod_{i = 1}^{n}(\lambda - \lambda_i) = 
+            (-1)^n(\lambda - \lambda_1)^{k_1}\ldots\]
+
+            $k_1$ называется кратностью для $\lambda_1$
+        \end{enumerate}
+        \item $A_1, \ldots, A_k$
+        
+        Вектор индикатор: $f_i = ([x_j \in A_i])_{j = 1}^{\ell}$
+
+        $f_1, \ldots, f_k$ - собственные векторы для $\lambda = 0$
+    \end{enumerate}
+
+    \underline{Доказательство:}
+
+    K = 1:
+
+    \begin{enumerate}
+        \item Является ли $\lambda = 0$ собственным значением
+        \[f = (1, \ldots, 1)\]
+        \[Lf = Df - Wf =
+        \begin{pmatrix}
+            d_1 \\
+            \vdots \\
+            d_{\ell}
+        \end{pmatrix} - 
+        \begin{pmatrix}
+            \sum w_{1, j} \\
+            \vdots \\
+            \sum w_{\ell, j}
+        \end{pmatrix} = 0\]
+        \item Кратность $\lambda = 0$ = 1 $\rightarrow$
+        нет других собственных векторов
+        
+        Допустим:
+        \[\exists f^{\prime} \in R^{\ell}: 
+        \exists p \neq q,
+        f^{\prime}p \neq f^{\prime}q, 
+        Lf^{\prime} = 0\]
+
+        \[(f')^TLf' = \frac{1}{2}\sum_{i, j = 1}^{\ell}
+        w_{ij}(f_i' - f_j')^2 = 0\]
+        \[\forall i,j: 
+        \bcases{w_{ij} = 0 \textrm{ Нет ребра} \cr 
+        f_i' = f_j'}\]
+
+        Граф G связный $\rightarrow$ 
+        Существует путь из p в q $\rightarrow$
+
+        Путь: $w \rightarrow i_1 \rightarrow 
+        \ldots \rightarrow p$
+
+        $w_{pi_1} \neq 0 \rightarrow f'p = f'_{i_1}
+        \rightarrow w_{i_1\ldots} \neq 0 \rightarrow \ldots
+        \rightarrow f'_p = f'_{i_1} = \ldots = f'_q$
+
+        \[\bot\]
+    \end{enumerate}
+
+    K > 1:
+
+    Можно упорядочить объекты так, чтобы L был
+    блочно-диагональным
+    
+    \[L = 
+    \begin{pmatrix}
+        L_1 & 0 & 0 \\
+        0 & L_2 & 0 \\
+        & \ddots & \\
+        0 & 0 & L_K
+    \end{pmatrix}\]
+
+    Спектр блочно-диагональной матрицы = 
+    объединение спектров отдельных блоков
+
+    $L_i \rightarrow f_i = ([x_j \in A_i])_{j = 1}^{\ell}$
+
+    Кратность $\lambda = 0$ равна K
+
+    \rule{\linewidth}{0.5pt}
+
+    Гипотеза: $x_i, x_j$ - похожие объекты $\Rightarrow$
+    у собственного вектора $f_i$ для $\lambda_i \approx 0$,
+    будет $f_ij \approx f_ik$
+
+    Для связанных графов не берем $\lambda = 0$, 
+    т.к. тогда будет одна компонетна
+
+    \textbf{Алгоритм:}
+    \begin{enumerate}
+        \item Строим лаплассиан
+        \item Находим m (гиперпараметр) нормированных 
+        собственных векторов $u_1, \ldots, u_m$,
+        соотв. наименьшим собственным значениям. 
+        
+        Сложность: $O(l^3)$
+        \item $U = (u_1 \mid \ldots \mid u_m) \in R^{\ell \times m}$
+        \item Новые признаки близки для объектов 
+        в одной плотной области
+        \item K-means
+    \end{enumerate}
+
+    \textbf{Как это связано с задачей $(\star)$:}
+
+    Если эту задачу релаксировать и 
+    искать не жесткое приписывание к классам, а распределение,
+    то ее решение U.
+\end{enumerate}
+\pagebreak
+
+\part{Семинары}
+\section{Семинар: Задачи условной оптимизации}
+
+\textit{Учебник: Boyd, Convex Optimization}
+
+\[\begin{cases}
+    f_0(x) \rightarrow min_{x \in R^d} \\
+    f_i(x) \leq 0, i = 1, \ldots, m \\
+    h_i(x) = 0, i = 1, \ldots, p
+\end{cases}\]
+
+\[G(x) = f_0(x) + \sum_{i = 1}^m I_{-}(f_i(x)) + \sum_{i = 1}^p I_0(h_i(x)) \rightarrow min\]
+
+Штрафы за нарушение ограничений:
+
+\[I_{-}(z) = \begin{cases}
+    0, z \leq 0 \\
+    + \infty, z > 0 
+\end{cases}\]
+
+\[I_{0} = \begin{cases}
+    0, z = 0 \\
+    + \infty, z \neq 0 
+\end{cases}\]
+
+\(G(x) \rightarrow \infty\) в точках где не выполняется условие
+
+Проблема: Недифференцируема
+
+Заменяем функции на их аппроксимации ($\hat{I}_{-} = ax$)
+
+Лагранжиан:
+
+\[L(x, \lambda, \nu) = f_0(x) + \sum_{i = 1}^m \lambda_i f_i(x) + \sum_{i = 1}^p \nu_i h_i(x)\]
+\[\lambda_i \geq 0\]
+
+x - прямые (primal) переменные
+
+$\lambda, \nu$ - двойственные переменные
+
+\textbf{Двойственная функция}
+
+\[g(\lambda, \nu) = \inf_{x} L(x, \lambda, \nu)\]
+
+\begin{itemize}
+    \item Двойственная функция всегда вогнутая
+    \item Дает нижнюю оценку на минимум функции в прямой задаче
+    
+    \(x^{\prime}\) - допустимая точка (все условия выполнены)
+
+    \[L(x^{\prime}, \lambda, \nu) = f_0(x^{\prime}) + 
+    \sum_{i = 1}^m \lambda_i f_i(x^{\prime}) + \sum_{i = 1}^p \nu_i h_i(x^{\prime})\]
+    \[f_i(x) \leq 0, h_i(x) = 0 \rightarrow 
+    L(x^{\prime}, \lambda, \nu) \leq f_0(x^{\prime})\]
+    \[\inf_x L(x, \lambda, \nu) \leq \inf_{x^{\prime}} 
+    L(x', \lambda, \nu) \leq \inf_{x^{\prime}} f_0(x')\]
+
+    $\uparrow$ - это и есть решение исходной задачи
+
+    \[g(\lambda, \nu) \leq f_0(x_{\star})\]
+
+    \[g(\lambda, \nu) \rightarrow \max_{\lambda, \nu}, \lambda_i \geq 0\]
+
+    \(\lambda^{\star}, \nu^{\star}\) - решение двойственной задачи
+
+    \(g(\lambda^{\star}, \nu^{\star}) \leq f_0(x_{*})\) - слабая двойственность
+
+    \(g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\) - сильная двойственность
+
+    \underline{Достаточное условие сильной двойственности (Условие Слейтера)}
+
+    \begin{itemize}
+        \item Задача выпуклая:
+        
+        \(f_0, f_1, \ldots, f_m\) - выпуклые
+
+        \(h_1, \ldots, h_p\) - линейные
+        \item \(\exists x^{\prime}\), что все ограничения выполнены строго
+    \end{itemize}
+\end{itemize}
+
+Пусть имеет место сильная двойственность:
+
+\[g(\lambda^{\star}, \nu^{\star}) = f_0(x_{*})\]
+
+\[g(\lambda^{\star}, \nu^{\star}) = \inf_x(f_0(x) + 
+\sum \lambda^{\star} f_i(x) + \sum \nu^{\star} h_i(x))
+\leq f_0(x_{\star}) + 
+\sum \lambda^{\star} f_i(x_{\star}) + \sum \nu^{\star} h_i(x_{\star}) 
+\leq f_0(x_{\star})\]
+
+Все неравенства являются равенствами:
+
+\begin{itemize}
+    \item Если решить безусловную задачу при подставлении $\lambda^{\star}, \nu^{\star}$,
+    то получим решение прямой задачи
+    \item \(\lambda_i^{\star}f_{i}(x^{\star}) = 0\) - условие дополняющей нежесткости
+\end{itemize}
+
+\textbf{Теорема Куна-Такера}
+
+Необходимые условия для 
+
+\[
+\begin{cases}
+    \nabla_x L(x_{\star}, \lambda^{\star}, \nu^{\star}) = 0 \\
+    f_i(x) \leq 0 \\
+    h_i(x) = 0 \\
+    \lambda_i \geq 0 \\
+    \lambda_i f_i(x_{\star}) = 0 \\
+    \textrm{Сильная двойственность}
+\end{cases}
+\leftrightarrow x_{\star}, \lambda^{\star}, \nu^{\star} \textrm{решения}
+\]
+
 \section{Семинар 3: EM алгоритм}
 
 На М-шаге:
@@ -580,185 +1223,134 @@ log p(Z, l \mid \alpha, \beta) =
 
 По $\beta$ аналогично
 
-\section{ЕМ алгоритм 2}
+\section{Семинар 4: Основы байсовских методов}
 
-\textbf{Свойства}
+Существует распределение $p(x, y)$
 
-\begin{enumerate}
-    \item \(logP(X \mid \Theta^{new}) \geq logP(X \mid \Theta^{old})\)
-    \item Если $\Theta_{i}$ не является станционарной точкой l, 
-    то $\Theta_{i + 1} \neq \Theta_{i}$
+Интересует распределение: $p(y \mid x)$
 
-    \[\nabla l(\Theta_i) \neq 0\]
-    \[logP(X \mid \Theta_i) = L(q \mid \Theta_i) + 
-    KL(q(\Theta_i) \mid\mid p)\]
-    \[KL = 0 \rightarrow 
-    \nabla_{\Theta}KL(q( \mid \mid p) = 0 \rightarrow 
-    \nabla L(q \mid \Theta_i) \neq 0 \rightarrow\]
-    \[\textrm{На М шаге точно сдвинемся и поменяем }\Theta\]
-\end{enumerate}
+\textit{Формула Байеса}
 
-\textbf{Теорема}
+\[p(y \mid x) = \frac{p(x \mid y)p(y)}{p(x)}\]
 
-\[Q(\Theta, \Theta^{Old}) = 
-E_{z \sim p(Z \mid X, \Theta^{Old})}
-logP(Z, X \mid \Theta^{Old})\]
+$p(x \mid y)$ - правдоподобие X, распределение объектов
+для некоторого класса
 
-Пусть Q непрерывна по обоим аргументам
+$p(y)$ - априорное распределение, 
+доли классов в обучающей выборке
 
-Тогда:
+$p(x)$ - нормировочная константа
 
-\begin{enumerate}
-    \item Все предельные точки последовательности $\Theta$
-    являются станционарными точками $logP(X \mid \Theta)$
-    \item $logP(X \mid \Theta)$ монотонно сходится к 
-    $logP(X \mid \Theta^{\star})$ - одной из станционарных точек 
-\end{enumerate}
+\textit{Функционал среднего риска}
 
-Отвлеченная штука:
+\[R(a) = \int_Y \int_X L(y, a(x))p(x, y)dxdy\]
 
-X - обучающая выборка
+\[E_{y, x}L(y, a(x))\]
 
-Хотим подогнать под нее распределение $p(x \mid \theta)$
+\textit{Как использовать оптимальное распределение, 
+когда оно найдено?}
 
-Эмпирическое распределение:
+\[L(y, a) = [y \neq a]\]
 
-\[\hat{p}(x \mid X) = \frac{1}{l}\sum^{l}_{i = 1}[x = x_i]\]
+Функционал среднего риска:
 
-Минимизировать KL-дивергенцию между эмпирическим и 
-параметрическим распределением.
+\[R(a) = \int_Y \int_X [y \neq a(x)]p(x, y)dxdy 
+= \sum_{y = 1}^{K}\int_X[y \neq a(x)]p(x, y)dxdy =\]
+\[= \int_X \sum_{y \neq a(x)}p(x, y)dxdy 
+= \int_X (1 - \sum_{y = a(x)}p(x, y))dxdy =\]
+\[1 - \int_X p(x, a(x))dxdy \rightarrow \min \Rightarrow
+a_{\star}(x) = \argmax_{y \in Y} P(y \mid x)\]
 
-\[KL(\hat{p}(x \mid X) \mid \mid p(x \mid \theta)) 
-\rightarrow min_{\theta}\]
+Для регрессии:
 
-\[= \sum_{i = 1}^{l} 
-\frac{1}{l}log  \frac{1 / l}{p(x_i \mid \theta)} = 
-\sum_{i = 1}^{l} 
-\frac{1}{l}log(1 / l) - logp(x_i \mid \theta) \rightarrow \]
-\[\sum_{i = 1}{l} logP(x_i \mid \theta) \rightarrow \max_{\theta}\]
+\[L(y, a) = (y - a)^2\]
+\[a_{\star}(x) = E(y \mid x)\]
 
-\section{Поиск аномалий}
+\textit{Как найти $p(y \mid x)$}
 
-В обучении есть только один класс - неаномальный, 
-надо научится отделять от него аномалии
+В классификации: 
 
-\textbf{Несбалансированная классификация}
-\begin{enumerate}
-    \item (Under/over)sampling - взвешенный 
-    функционал ошибки
-    \item Синтетические объекты
-    \begin{enumerate}
-        \item SMOTE
-        \begin{enumerate}
-            \item Выбираем объекты $X_1$ из минорного класса,
-            выбираем случаный объект из k ближайших соседей
-            тоже из минорного класса $X_2$
-            \item Новый объект: \(X = \alpha X_1 + (1 - \alpha)X_2, 
-            \alpha \sim U(0, 1)\)
-            \item Предполагает существование объектов между $X_1, X_2$
-        \end{enumerate}
-    \item Аугментации
-    \end{enumerate}
-\end{enumerate}
+\[a_{\star}(x) = 
+\argmax_{y \in Y} p(y \mid x) = 
+\argmax_{y \in Y} \frac{p(x \mid y)p(y)}{p(x)} = \]
+\[= \argmax_{y \in Y}p(x \mid y)p(y)\]
 
-\textbf{Одноклассовая классификация}
-\begin{enumerate}
-    \item Бенчмарк: Классификация X на нормальные и аномальные, 
-    стандартные метрики
-    \item Статистический подход - описываем плотностью $p(x)$ для
-    новых объектов смотрим на вероятность - $p(x)$ - novelty score.
+$p(y)$ задается исходя из распределения $y$
 
-    Откуда брать p
-    \begin{enumerate}
-        \item Параметрический подход:
-        
-        \[\sum_{i = 1}^l logP(x \mid \theta) 
-        \rightarrow \max_{\theta}\]
-        \item Непараметрический подход:
-        \begin{enumerate}
-            \item d = 1:
-            
-            \[p(x) = \lim_{h \to 0} 
-            \frac{1}{2h}P(\xi \in [x - h, x + h])\]
+$p(x \mid y, \theta)$ находим $\theta$ ММП
+\newline
 
-            \[\hat{p}(x) = \frac{1}{2h}\frac{1}{l} 
-            \sum_{i = 1}^l \mid [x_i - x \mid < h] =\]
+\textit{Пример:}
 
-            \[= \frac{1}{lh} \sum_{i = 1}^l 
-            \frac{1}{2}[\frac{\mid x_i - x \mid}{h} < 1]\]
+\rule{\linewidth}{0.5pt}
+\[p(y \mid x, w) = \mathcal{N}(<w, x>, \sigma^{2})\]
 
-            Можно заменить на более гладкую плотность:
+Правдоподобие:
 
-            \[\frac{1}{lh} \sum_{i = 1}^l 
-            \frac{1}{2}K(\frac{x_i - x}{h})]\]
+\[\prod_{i = 1}^{\ell}\frac{1}{\sqrt{2 \pi \sigma^{2}}}
+exp(-\frac{(y_i - <w, x_i>)^{2}}{2\sigma^{2}}) 
+\rightarrow \max_{w}\]
 
-            \begin{enumerate}
-                \item $K(z) = K(-z)$
-                \item $\int_{\mathcal{R}} K(z)dz = 1$
-                \item $K(z) \geq 0$
-                \item Не возрастает при $Z > 0$
-            \end{enumerate}
-            \item d > 1:
-            
-            \[\hat{p}(x) = \frac{1}{lV(h)} \sum_{i = 1}^l 
-            K(\frac{\rho(x_i, x)}{h})\]
+\[logL = -\ell log\sqrt{2 \pi \sigma^{2}} - 
+\frac{1}{2 \sigma^{2}}\sum_{i = 1}^{l}(y_i - <w, x_i>)^2
+\rightarrow \max_{w} \Rightarrow\]
+\[\Rightarrow \sum_{i = 1}^{l}(y_i - <w, x_i>)^2 
+\rightarrow \min_{w}\]
+\rule{\linewidth}{0.5pt}
+\newline
 
-            \[V(h) = \int K(\frac{\rho(x_i, x)}{h}) dx\]
+Классификация:
 
-            h - гиперпараметр
-        \end{enumerate}
-    \end{enumerate}
+Нужно найти $p(x \mid y, \theta)$ для всех классов
 
-    \item Метрический подход
-    
-    x - аномалия, если он далеко от других объектов
+\[p(x \mid y, \theta) = \mathcal{N}(\mu_{y}, \Sigma_{y})\]
 
-    Смотреть на количество объектов в $\epsilon$-окрестности?
+Можем найти $\mu_y, \Sigma_y$ по ММП
 
-    Плохой подход:
+Если параметры распределены нормально - 
+Нормальный дискриминантный анализ
 
-    Надо смотреть не на единую окрестность, а смотреть на 
-    плотность объектов в отдельной точке и на основе нее 
-    оценивать окрестность
+Если $\Sigma_y = \Sigma$, метод называется
+линейный дискриминант Фишера
 
-    \textbf{Определения:}
+Разделяющая поверхность:
 
-    \begin{enumerate}
-        \item $\rho_k(x)$ - такое минимальное число n, что:
-        
-        Для $\geq$ k объектов из $X/\{x\}$
-        выполнено $\rho(x, z) \leq n$
+\[p(y = +1 \mid x, \theta) = p(y = -1 \mid x, \theta)\]
 
-        Для $\leq$ k-1 объектов выполнено $\rho(x, z) < n$
+$\Sigma_{-1} \neq \Sigma_{+1} \Rightarrow$ квадратичная поверхность
 
-        По сути: расстоение до k-го ближайшего соседа
+$\Sigma_{-1} = \Sigma_{+1} \Rightarrow$ Линейная поверхность
 
-        \item К-окрестность: 
-        
-        \[\mathcal{N}_{k}(x) = \{z \in X/\{x\}\}: 
-        \rho(x, z) \leq \rho_k(x)\]
+\rule{\linewidth}{0.5pt}
 
-        \item Reachibility Distance:
-        
-        \[rd_k(x, z) = max(\rho_k(z), \rho(x, z))\]
+\textbf{Больше распределений:}
 
-        Позволяет сгладить расстояние между объектами
+\[p(w \mid y, x) = \frac{p(y \mid x, w)p(w)}{p(x, y)}\]
 
-        \item Local Reachibility Distance
-        
-        \[lrd_k(x) = \frac{1}{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
-        \sum_{z \in \mathcal{N}_{k}(x)}rd_k(x, z)}\]
+$p(w) \sim \mathcal{N}(0, \sigma^{2}I)$ - запрещаем модели большие веса
 
-        Обращенное среднее расстояние от x до ближайших соседей
+\[logP(w \mid y, x) = 
+-\frac{1}{2\sigma_{2}}\sum_{i = 1}^{\ell}(y_i - <w, x_i>)^2 -
+\frac{\ell}{2\alpha^{2}}\sum_{j = 1}^{\alpha}w_{j}^{2} 
+\rightarrow \max_{w}\]
 
-        \item Local Outlier Factor
-        
-        \[LOF_k(x) = \frac{\frac{1}{\mid\mathcal{N}_{k}(x)\mid}\
-        \sum_{z \in \mathcal{N}_{k}(x)}lrd_k(z)}
-        {lrd_k(x)}\]
+Фактически: MSЕ с регуляризацией $L^2$
 
-        Отлавливаем объекты у которых соседи находятся в плотных
-        областях, но сами они находятся далеко от соседей
-    \end{enumerate}
-\end{enumerate}
+\[\lambda = \frac{\ell \sigma^{2}}{\alpha^{2}}\]
+
+Что если $w_j \sim \mathcal{0, \alpha_j^2}$?
+
+Отдельный коэффициент регуляризации для каждого
+параметра - такое не особо выводится в классическом 
+машинном обучении $\rightarrow$ RVM
+
+\rule{\linewidth}{0.5pt}
+
+\textbf{Наивный Байесовский алгоритм}
+
+Исходя из предположения о независимости признаков:
+
+\[p(x \mid y) = \prod_{j = 1}^{d}p(x_j \mid y)\]
+\[a(x) = \argmax_{y \in Y}p(y \mid x) = 
+\argmax_{y}(lnP(y) + \sum_{j = 1}^d lnP(x_j \mid y))\]
 \end{document}
