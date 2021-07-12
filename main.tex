@@ -1001,6 +1001,304 @@ E - ребра:
     искать не жесткое приписывание к классам, а распределение,
     то ее решение U.
 \end{enumerate}
+
+\section{Метрики качества классификации, 
+тематическое моделирование}
+
+\subsection{Affinity Propagation}
+
+Цель - найти типовые объекты и на их основе выделять кластеры
+
+Сходство вершин:
+
+\[s(i, k) = -\norm{x_i - x_k}^2\]
+
+$r(i, k)$ - Насколько $x_k$ является типовым объектом для $x_i$
+
+$a(i, k)$ - Насколько у $x_i$ важный голос для типового объекта
+
+Инициализируем 0 и итеративно рассчитываем показатели:
+
+\[r(i, k) = s(i, k) - \max_{k' \neq k}(a(i, k') + s(i, k'))\]
+
+Если рядом есть более близкие объекты, чем k, 
+то k не очень хороший представитель.
+
+\[a(i, k) = \min(0, r(k, k) + \sum_{i' \neq i, i' \neq k}max(r(i', u)))\]
+
+\[\alpha(x_i) = \argmax_{k \in \{1, \ldots, \ell\}}(r(i, k) + a(i, k))\]
+
+\subsection{Оценка качества кластеризации}
+
+\begin{enumerate}
+    \item Внутренние
+        \begin{enumerate}
+            \item Без использование лейблов
+            \item Внутрикластерное расстояние
+            \item Межкластерное расстояние
+        \end{enumerate}
+    \item Внешние
+    \begin{enumerate}
+        \item Знаем истинные номера кластеров $y_1, \ldots, y_{\ell}$
+        \item Номера кластеров нельзя сравнивать с истинными
+        \item Посчитать K! перестановок и найти классы?
+        \item \textbf{Требования к метрике}
+        \begin{enumerate}
+            \item Гомогенность
+            
+            Значение метрики качества должно уменьшаться при 
+            объединении в один кластер двух эталонных
+
+            \item Полнота
+            
+            Значение метрики качества должно уменьшаться 
+            при разделении эталонного кластера на части
+
+            \item Rag bag
+            
+            Значение метрики качества должно быть выше у той версии кластеризации, 
+            которая помещает новый нерелевантный обоим кластерам элемент в шумный кластер, 
+            по сравнению с версией, которая помещает этот элемент в чистый кластер
+
+            \item Cluster size vs quantity
+            
+            Значительное ухудшение кластеризации большого числа небольших кластеров должно обходиться дороже 
+            небольшого ухудшения кластеризации в крупном кластере.
+        \end{enumerate}
+        \item \textbf{Метрики}
+        \begin{enumerate}
+            \item Bcubed
+            
+            $y(x)$ - номер кластера в истинной разметке
+            
+            $a(x)$ - выход кластеризации
+
+            Correctness:
+
+            \[C(x_i, x_j) = 
+            \begin{cases}
+                1, y(x_i) = y(x_j) & a(x_i) = a(x_j) \\
+                0, otw
+            \end{cases}\]
+
+            \[\textrm{Precision-Bcubed} = Avg_{x_i}(Avg_{x_j, a(x_i) = a(x_j)}(C(x_i, x_j)))\]
+
+            \[\textrm{Recall-Bcubed} = Avg_{x_i}(Avg_{x_j, y(x_j) = y(x_i)} C(x_i, x_j))\]
+
+            \[F_{\textrm{Bcubed}} = 2 \frac{\textrm{Precision}\textrm{Recall}}{\textrm{Precision} + \textrm{Recall}}\]
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Подбор метрик для продукта}
+
+Вводим набор ухудшений 
+
+\section{Тематическое моделирование}
+
+Методы кластеризации для текстов
+
+Есть $T$ тематик
+
+$x_d$ - документ
+
+$\theta_d \in R^T$ - распределение тематик для документа
+
+$\phi_t in R^W$ - тема описывается распределением на словах
+
+$W$ размер словаря
+
+\subsection{LSA (Latent Semantic Analysis)}
+
+\[X \in R^{d \times W}\]
+
+$X_{dw}$ - сколько раз слово w входит в документ d
+
+\[X = \Theta \times \Phi, \Theta \in R^{d \times T}, \Phi in R^{T \times W}\]
+
+\[x_{dw} = \sum_{t = 1}^{T} \theta_{dt} \times \phi_{wt}\]
+
+Делаем SVD для разложения 
+
+\subsection{PLSA}
+
+Хотим ввести вероятности
+
+\[p(t \mid d) = \theta_{td}\]
+\[p(w \mid t) = \phi_{wt}\]
+
+Генерация текста $x_d$
+
+\begin{enumerate}
+    \item Сэмплируем тему $t \sim p(t \mid d)$
+    \item Сэмплируем слово $w \sim p(w \mid t)$
+    \item Добавляем слово в текст
+    \item Повторяем до нужной длины
+\end{enumerate}
+
+$\theta_{dt}, \phi_{tw}$ - параметры модели
+
+Неполное правдоподобие данных:
+
+\[\begin{cases}
+    \sum_{d = 1}^D \sum_{t = 1}^T \sum_{w = 1}^W[t_{dj} = t]log\phi_{w_{d_jt}}\theta_{td} \\
+    \theta_{td}, \phi_{wt} \geq 0 \\
+    \sum \theta, \sum \phi = 1
+\end{cases}
+\]
+
+Тема является скрытой переменной
+
+Можно построить ЕМ-алгоритм по этой задаче:
+
+Е-шаг: $p(t_{dj} \mid d, w_{dj})$
+
+М-шаг: $\phi_{wt}, \theta_{td} = ?$
+
+\subsection{LDA (Latent Dirichlet Allocation)}
+
+В PLSA не требуем невырожденности распределений
+
+Дополнительно вводим распределения параметров:
+
+$\Phi_t = Dir(\alpha)$
+
+$\Theta_d = Dir(\beta)$
+
+\[Dir(x_1, \ldots, x_n, \alpha) = \frac{\Gamma (\alpha n)}{\Gamma^n(\alpha)}\prod_{i = 1}^n x_i^{\alpha - 1}\]
+
+Распределение на дискретных распределениях с n исходами
+
+\section{Частичное обучение (semisupervised)}
+
+Используется в случае:
+
+Есть обучающая выборка $X^l = \{(x_i, y_i)\}_{i = 1}^{\ell}$
+
+Есть неразмеченная выборка: $X^u = \{(x_i)\}_{i = \ell + 1}^{n}$
+
+Самая большая ценность состоит в необычных объектах
+
+Мотивация: Неразмеченные данные собрать проще, чем размеченные
+
+Категории задачи:
+
+\begin{enumerate}
+    \item Semisupervised learning: $X_{\ell} \cup X_u \rightarrow a(x)$
+    \item Transductive learning $X_{\ell} \cup X_u \rightarrow$ Найти метки для $X_u$
+\end{enumerate}
+
+\textbf{Методы:}
+
+\begin{enumerate}
+    \item Self-training
+    
+    \begin{enumerate}
+        \item Обучить a(x) на $X^{\ell}$
+        \item Применить на $X^u$
+        \item Добавить $(x_i, a(x_i))$ в $X^{\ell}$ объекты на 
+        которых модель наиболее уверена
+
+        Критерий: 
+        \begin{enumerate}
+            \item Для классификации: самые большие уверенности
+            \item Брать по порогу расстояния к обучающим
+            \item Всю $X^u$ с весами на основе уверенности модели
+            
+            Взвешиваем лосс
+        \end{enumerate}
+
+        \item Повторить
+    \end{enumerate}
+    \item Генеративные модели
+    
+    Описываем каждый класс нормальный распределением
+
+    Если бы были только $X^{\ell}$:
+
+    Правдоподобие и максимизация по параметрам:
+
+    \[\sum_{i = 1}^{\ell} logP(y_i \mid \theta)P(x_i \mid y_i, \theta) \rightarrow \max_{\theta}\]
+
+    Если $X^{\ell}$ и $X^{u}$:
+
+    Неразмеченные данные хотим описать как смесь распределений классов
+
+    \[\sum_{i = 1}^{\ell} logP(y_i \mid \theta)P(x_i \mid y_i, \theta) +
+    \sum_{i = \ell + 1}^n log \sum_{y = 1}^K p(y \mid \theta)p(x_i \mid y, \theta) 
+    \rightarrow \max_{\theta}\]
+
+    Используем EM-алгоритм для поиска $\theta$
+
+    Второе слагаемое может перевесить - нужно добавить $\lambda$
+
+    \item Упрощенная версия: Cluster-and-label:
+    
+    Обучаем алгоритм кластеризации и помечаем в каждом кластере
+    объекты самым популярным классом
+
+    \item Методы на основе моделей
+    
+    \begin{enumerate}
+        \item Логит $\rightarrow$ Expectation Regularization
+        \item Semi-Supervised SVM = S3VM
+        
+        Безусловная задача оптимизации SVM:
+
+        \[\norm{w}^2 + C\sum_{i = 1}^{\ell}\max(0, 1 - y_i<w, x_i>) 
+        \rightarrow \min_{w}\]
+
+        Лосс > 0 когда расстояние до гиперплоскости отрицательное
+
+        Для unsupervised: чего требовать?
+
+        Если объект близко к гиперплоскости - штрафуем, 
+        если далеко - не штрафуем
+        
+        Задача:
+
+        \[\norm{w}^2 + C_1 \sum_{i = 1}^{\ell} \max(0, 1 - y_i<w, x_i>)
+        + C_2 \sum_{i = \ell + 1}^n \max(0, 1 - \mid<w, x_i>\mid)
+        \rightarrow \min_{w}\]
+
+        Может подобрать гиперплоскость, которая просто лежит
+        далеко от данных и не разделяет их
+
+        Можно потребовать, чтобы баланс классов был такой же,
+        как и на размеченных данных
+
+        \[\frac{1}{n - \ell} \sum_{i = \ell + 1}^n a(x_i)
+        = \frac{1}{\ell} \sum_{i = 1}^{\ell} y_i\]
+
+        Тогда гиперплоскость не может просто не разбивать классы
+
+        Очень сложная задача с точки зрения оптимизации- 
+        максимум, модуль, ограничения
+
+        \textbf{CCCP: ConCave Convex Procedure}
+        
+        Метод для оптимизации суммы выпуклой и вогнутой функции
+    \end{enumerate}
+    \item Графовые методы
+    
+    \[a(x) = \infty \sum_{i = 1}^{\ell} (a(x_i) - y_i)^2 +
+    \sum_{i, j = 1}^n w_{ij}(a(x_i) - a(x_j))\]
+
+    \[w_{ij} = exp \left(- \frac{\norm{x_i - x_j}^2}
+    {2\sigma^2}\right)\]
+
+    Согласованные метки на соседних объектах для неразмеченных
+
+    Бесконечно более важно оптимизировать первый элемент
+
+    Упрощение задачи (Manifold Regularization):
+
+    \[\sum_{i = 1}^{\ell} L(y_i, a(x_i)) +
+    \lambda_1 R(a) + 
+    \lambda_2 \sum_{i, j = 1}^n w_{ij}(a(x_i) - a(x_j))\]
+
+    \[\sum_{i, j = 1}^n w_{ij}(a(x_i) - a(x_j)) = a^T L a\]
+\end{enumerate} 
 \pagebreak
 
 \part{Семинары}
@@ -1338,7 +1636,7 @@ $p(w) \sim \mathcal{N}(0, \sigma^{2}I)$ - запрещаем модели бол
 
 \[\lambda = \frac{\ell \sigma^{2}}{\alpha^{2}}\]
 
-Что если $w_j \sim \mathcal{0, \alpha_j^2}$?
+Что если $w_j \sim \mathcal{N}(0, \alpha_j^2)$?
 
 Отдельный коэффициент регуляризации для каждого
 параметра - такое не особо выводится в классическом 
@@ -1353,4 +1651,359 @@ $p(w) \sim \mathcal{N}(0, \sigma^{2}I)$ - запрещаем модели бол
 \[p(x \mid y) = \prod_{j = 1}^{d}p(x_j \mid y)\]
 \[a(x) = \argmax_{y \in Y}p(y \mid x) = 
 \argmax_{y}(lnP(y) + \sum_{j = 1}^d lnP(x_j \mid y))\]
+
+\section{Семинар 5: Спектральная кластеризация}
+
+\textbf{Алгоритм:}
+
+\begin{enumerate}
+    \item $L = D - W, 
+    D = diag(d_1, \ldots, d_{\ell}), 
+    d_i = \sum_{j = 1}^{\ell}w_{ij}$
+    \item $u_1, \ldots, u_m$ - собственные векторы, соотв.
+    минимальным собственным значениям L
+    \item $U = (u_1 \mid \ldots \mid u_m) \in R^{l \times m}$
+    \item K-means над U
+\end{enumerate}
+
+Почему не делать кластеризацию t-SNE или Umap?
+
+\begin{enumerate}
+    \item Оптимизирует положение точек, 
+    а не расположение кластеров
+    \item В t-SNE ошибка может быть неограничено большой
+    $\rightarrow$ зашумленные представления объектов
+    \item Есть шанс, что PSA будет лучше, чем t-SNE
+\end{enumerate}
+
+Задача кластеризации:
+
+\[W(A, B) = \sum_{i \in A, j \in B}w_{ij}\]
+\[A, B \subset X\]
+\[A \cap B = \emptyset\]
+\[\bar{A} = X \setminus A\]
+\[\textrm{Ratio Cut}(A_1, \ldots, A_k) = 
+\frac{1}{2} \sum_{i = 1}^K 
+\frac{W(A_i, \bar{A}_i)}{\mid A_i \mid}
+\rightarrow \min_{A_1, \ldots, A_K}\]
+
+K = 2:
+
+\[\textrm{Ratio Cut}(A, \bar{A}) 
+\rightarrow \min_{A \subset X}\]
+
+Задача поиска минимального разреза
+
+\[X = A \cup \bar{A}\]
+
+\[f: f_i =
+\begin{cases}
+    \sqrt{\frac{\mid\bar{A}\mid}{\mid A \mid}}, x_i \in A \\
+    -\sqrt{\frac{\mid A\mid}{\mid \bar{A} \mid}}, x_i \in \bar{A}
+\end{cases}\]
+
+Квадратичная форма:
+
+\begin{gather*}
+    f^TLf = \frac{1}{2}\sum_{i, j = 1}^{\ell} 
+    w_{ij}(f_i - f_j)^2 = \\
+    = \frac{1}{2}\left(\sum_{x_i \in A, x_j \in \bar{A}} w_{ij}
+    \sqrt{\frac{\mid\bar{A}\mid}{\mid A \mid}} +
+    \sqrt{\frac{\mid A\mid}{\mid \bar{A} \mid}}\right)^2 +
+    \frac{1}{2}\left(\sum_{x_i \in \bar{A}, x_j \in A} w_{ij}
+    \sqrt{-\frac{\mid A \mid}{\mid \bar{A} \mid}} + 
+    \sqrt{-\frac{\mid \bar{A} \mid}{\mid A \mid}}\right)^2 \\
+    = \frac{1}{2}\left(\sqrt{\frac{\mid\bar{A}\mid}{\mid A \mid}} +
+    \sqrt{\frac{\mid A\mid}{\mid \bar{A} \mid}}\right)^2
+    (W(A, \bar{A}) + W(\bar{A}, A)) \Rightarrow \\
+    \Rightarrow \left(\sqrt{\frac{\mid\bar{A}\mid}{\mid A \mid}} +
+    \sqrt{\frac{\mid A\mid}{\mid \bar{A} \mid}}\right)^2
+    = \left(\frac{\mid \bar{A} \mid + \mid A \mid}{\mid A \mid}
+    + \frac{\mid A \mid + \mid \bar{A} \mid}{\mid \bar{A} \mid}\right)
+    = \ell (\frac{1}{\mid A \mid} + \frac{1}{\mid \bar{A} \mid}); \\
+    (W(A, \bar{A}) + W(\bar{A}, A)) = 2W(A, \bar{A}) \Rightarrow \\
+    f^TLf = \ell(\frac{1}{\mid A \mid} + \frac{1}{\mid \bar{A} \mid})
+    W(A, \bar{A}) = 2\ell\textrm{Ratio Cut}(A, \bar{A}) 
+    \propto \textrm{Ratio Cut}(A, \bar{A}) \\
+    \sum_{i = 1}^{\ell}f_i = \mid A \mid 
+    \sqrt{\frac{\mid\bar{A}\mid}{\mid A \mid}} - 
+    \mid \bar{A} \mid 
+    \sqrt{\frac{\mid A \mid}{\mid \bar{A} \mid}}
+    = \sqrt{\mid A \mid \mid \bar{A} \mid} - 
+    \sqrt{\mid A \mid \mid \bar{A} \mid} = 0 \\
+    \sum_{i = 1}^{\ell}f_i^2 = 
+    \mid A \mid
+    \frac{\mid\bar{A}\mid}{\mid A \mid} +
+    \mid \bar{A} \mid 
+    \frac{\mid A \mid}{\mid \bar{A} \mid}
+    = \ell
+\end{gather*}
+
+Переписываем оптимизационную задачу:
+
+\begin{gather*}
+    \begin{cases}
+        f^TLf \rightarrow \min_{f_i \in \{\ldots\}} \\
+        <f, \vec{1}> = 0 \\
+        \norm{f}^2 = \ell
+    \end{cases} \\
+    \textrm{Релаксация: } f_i \in R \\
+    \begin{cases}
+        f^TLf \rightarrow \min_{f \in R^{\ell}} \\
+        <f, \vec{1}> = 0 \\
+        \norm{f}^2 = \ell
+    \end{cases} \\
+\end{gather*}
+\begin{gather*}
+    \textrm{Лагранжиан:} \\
+    \mathcal{L} = f^TLf + \lambda_1<f, \vec{1}> + 
+    \lambda_2(\norm{f}_2 - \sqrt{\ell}) \\
+    \nabla_f \mathcal{L} = 2L_f + 
+    \lambda_1 \vec{1} +
+    \lambda_2 \frac{1}{\norm{f}}f = 0 \mid \times \vec{1}^T \\
+    2 \vec{1}^TLf + \lambda_1 \ell + 
+    \lambda_2 \frac{1}{\norm{f}}<\vec{1}, f> = 0 \Rightarrow\\
+    L1 = 0 \Rightarrow f^TL1 = 0 \Rightarrow \lambda_1 \ell = 0 \\
+    \lambda_1 = 0 \\
+    2Lf + \lambda_2 \frac{1}{\norm{f}}f = 0 \\
+    Lf = -\frac{\lambda_2}{2\norm{f}}f \Rightarrow \\
+    \textrm{f - собственный вектор L, соотв. с.з.} \mu \\
+    f^TLf = \mu f^Tf = \norm{f}_{2}\mu = \ell \mu \\
+    \textrm{Новая задача:}
+    \begin{cases}
+        \mu \rightarrow \min_{\mu \textrm{ - с.з L}, 
+        f \textrm{- c.в.}} \\
+        <f, \vec{1}> = 0 \\
+        \norm{f} = \sqrt{\ell}
+    \end{cases}
+\end{gather*}
+Если G-связный, то с.в. соотв. 0 с.з. не подходит
+из-за невыполнения первого ограничения, в неполном графе
+может подходить
+
+Решение - это с.в., соотв. второму собств. знач.
+
+Находим f $\rightarrow$ запускам K-means
+
+\section{Семинар 6: Отбор признаков}
+
+\subsection{Deep Clustering}
+
+\begin{enumerate}
+    \item Прогоняем объекты через нейросеть
+    \item По векторным описаниям строим псевдоразметку
+    с помощью KMeans
+    \item Обучаем на псевдоразметке
+    \item Повторяем каждую эпоху
+\end{enumerate}
+
+Даже необученная сеть не супер плохо размечает
+
+Проблемы:
+
+\begin{enumerate}
+    \item Несбалансированные выборки - использование 
+    взвешенных лоссов
+    \item Наличие пустых кластеров - берем случайный центр 
+    другого кластера и добавляем шум
+    \item Делаем PCA перед кластеризацией, L2 нормализацию
+    \item Сбрасываем линейный слой на каждой эпохе
+\end{enumerate}
+
+Есть возможности для улучшений:
+
+\begin{enumerate}
+    \item Использовать не PCA, а MLP
+    \item Инициализируем матрицу классификатора в виде центроидов
+\end{enumerate}
+
+\subsection{Positional Encoding}
+
+Более простая задача:
+
+\begin{enumerate}
+    \item Подаем сети координату точки
+    \item Она восстанавливает цвет пикселя с координатами
+    \item Можно воссоздавать 3D сцены (NERF)
+\end{enumerate}
+
+\subsection{Спектральный анализ}
+
+Берем картинку и парсим ее на частоты с помощью
+преобразования Фурье
+
+При высоких частотах - быстрые изменения цвета
+
+Обычный персептрон не умеет передавать высокие частоты
+
+\subsection{Positional encoding}
+
+Подаем не только саму картинку, но и гармоники - сеть
+сможет извлекать высокие частоты и обучаться на них
+
+\subsection{Feature extraction}
+
+Методы:
+
+\begin{enumerate}
+    \item Filter
+    \begin{enumerate}
+        \item Relevancy - удаляем близкие фичи
+        \item Redundancy - используем Mutual Info classifier
+        \item MRMR classifier
+    \end{enumerate}
+    \item Wrapper - переучиваем модель на подмножествах фичей
+\end{enumerate}
+
+\section{Работа с признаками}
+
+\begin{enumerate}
+    \item Придумывание признаков
+    \item Feature selection
+    \item Понижение размерности
+\end{enumerate}
+
+\subsection{Отбор признаков}
+
+\begin{enumerate}
+    \item Методы фильтрации
+    \begin{enumerate}
+        \item Корреляция $x_j$ c $y$ - 
+        не учитывает нелинейность и попарную корреляцию
+        \item Для корреляции: t-score
+        
+        \[R_j = \frac{\mid\mu_{-1} - \mu_{+1}\mid}
+        {\sqrt{\frac{\sigma_{-1}^2}{n_{-1}} +
+        \frac{\sigma_{+1}^2}{n_{+1}}}}\]
+
+        \item Для многоклассовой f-score
+    \end{enumerate}
+    \item Методы обертки
+    \begin{enumerate}
+        \item Ищем подмножество признаков, при
+        котором ошибка модели на валидации поменьше
+        \item Жадное удаление / добавление
+        \item Генетические алгоритмы
+        
+        $\beta \in \{0, 1\}^{\alpha}$ - вхождение признака в подмножество
+        признаков
+
+        Итерация:
+
+        \begin{enumerate}
+            \item Популяция: $B = \{\beta_1, \ldots\}$
+            \item Скрещивание: $\beta_j = \beta' \times \beta''$
+            
+            $\beta_j =
+            \begin{cases}
+                \beta', p = \frac{1}{2} \\
+                \beta'', p = \frac{1}{2}
+            \end{cases}$
+
+            \item Мутация: $\sim \beta' \rightarrow \beta_j =
+            \begin{cases}
+                \beta_j', p \\
+                1 - \beta_j', 1 - p
+            \end{cases}$ 
+
+            \item Новая популяция: $B' = \{\sim \beta' 
+            \times \beta''\}$ для какого-то числа пар из B
+
+            \item Делаем селекцию: Оставляем n лучших организмов
+        \end{enumerate}
+        \item Отбор признаков на основе моделей: Лассо, Out of bag
+    \end{enumerate}
+\end{enumerate}
+
+\rule{\linewidth}{0.5pt}
+
+\subsection{Понижение размерности}
+
+Метод главных компонент (PCA)
+
+\begin{align*}
+    & X \in R^{1\times D}\\
+    & u_1, \ldots, u_D \in R^D \textrm{ - главные компоненты, если} \\
+    &(1): <u_i, u_j> = 0, \forall i \neq j \\
+    &(2): \norm{u_j}^2 = 1 \\
+    &(3): \textrm{ При проецировании выборки X на } u_1, \ldots, u_d:
+    var \rightarrow \max
+\end{align*}
+
+Поиск первой компоненты:
+
+\[\begin{cases}
+    u_1^T X^T X u_1 \rightarrow \max\\
+    \norm{u_1}^2 = 1
+\end{cases}\]
+
+Лагранжиан:
+
+\[2X^TX u_1 + 2\lambda u_1 = 0 \Rightarrow 
+\lambda \rightarrow \max\]
+
+$u_1$ - собств. вектор $X^TX$ соотв. наибольшему с.з.
+
+Постановка 2:
+
+\begin{align*}
+    & X \in R^{\ell \times D} \\
+    & Z \in R^{\ell \times d} \\
+    & U \in R^{d \times D}
+
+    & \textrm{Задача:}
+
+    & \norm{X - ZU^T}_F^2 \rightarrow min
+\end{align*}
+
+Решается с помощью сингулярного разложения
+
+\section{Метод k ближайших соседей}
+
+\begin{align*}
+    & X = \{(x_i, y_i)\}_{i = 1}^{\ell} \\
+    & \rho: X \times X \rightarrow (0, +\infty) \\
+    & U: \rho(u, x_1) \leq \ldots \leq \rho(u_{\ell}) \\
+    & a(u) = \argmax_{y \in Y} \sum_{i = 1}^{K} w_i [y_i = y] 
+\end{align*}
+
+Особенности метода:
+
+\begin{enumerate}
+    \item Шумовые признаки
+    
+    Очень чувствителен к шумовым признакам, 
+    т.к. использует все признаки для 
+    подсчета расстояния
+
+    \item Проклятие размерности
+    
+    Все объекты находятся по краям гиперкуба - трудно быстро искать 
+    близких соседей
+
+    \item Функции расстояния
+    \begin{enumerate}
+        \item Метрика Минковского: 
+        $\rho_p(x, z) = (\sum \mid x_j - z_j \mid^p)^{\frac{1}{p}}$
+
+        $\rho_{\infty}(x, z) = max \mid x_j - z_j \mid$
+
+        $\rho_0(x, z) = \sum_{j = 1}^d [x_j \neq z_j]$
+        
+        Можно добавить веса для отдельных признаков:
+
+        Веса можно подбирать покоординатным спуском
+        \item Расстояние Махаланобиса
+        
+        $\rho(x, z) = \sqrt{(x - z)^T S^{-1} (x - z)}$
+
+        $S$ - симметричная, положительно определенная матрица
+
+        \item Косинусная мера
+        
+
+        $\rho_{cos}(x, z) = 
+        arccos(\frac{<x, z>}{\norm{x}\norm{z}})$
+    \end{enumerate}
+\end{enumerate}
 \end{document}
