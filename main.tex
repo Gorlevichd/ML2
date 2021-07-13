@@ -1298,7 +1298,182 @@ $\Theta_d = Dir(\beta)$
     \lambda_2 \sum_{i, j = 1}^n w_{ij}(a(x_i) - a(x_j))\]
 
     \[\sum_{i, j = 1}^n w_{ij}(a(x_i) - a(x_j)) = a^T L a\]
-\end{enumerate} 
+\end{enumerate}
+
+\section{Метрические методы}
+
+Case-based reasoning - не очень зависит от параметров
+
+$\rho: X \times X \rightarrow (0, + \infty)$ - функция расстояния
+
+Обучение: запоминаем X
+
+Применение:
+
+u - новый объект
+
+Строим вариационный ряд: 
+
+\[\rho(u, x_1) \leq \rho(u, x_2) \ldots\]
+
+Классификация:
+
+\[a(u) = \argmax_{y \in Y} \sum_{k = 1}^K w(K, u, x_k) [y_k = y]\]
+
+Веса учитывают расстояния до точки:
+
+\[w(K, u, x_k) = K(\frac{\rho(u, x_k)}{h})\]
+
+Регрессия (Формула Надарая-Ватсона):
+
+\[a(u) = \frac{\sum_{k = 1}^K w y_k}{\sum_{k = 1}^K w}\]
+
+Зачем нужен kNN?
+
+\begin{enumerate}
+    \item Если легко задать расстояния, 
+    но сложно придумать признаки
+    \item Если задача решается через сходство
+    \item Мало представителей каждого класса
+\end{enumerate}
+
+Оптимальность kNN:
+
+\begin{align*}
+    & Y = \{-1, +1\} \\
+    & p(y = +1 \mid x) \\
+    & u \textrm{ - хотим классифицировать} \\
+    & x_u \textrm{ - ближайший сосед} \\
+    & p_{bayes}^* \textrm{ - вероятность ошибки 
+    опт. Байесовского класс} \\
+    & p_{1nn} \leq 2p_{bayes}, if l \to \infty
+\end{align*}
+
+\rule{\linewidth}{0.5pt}
+
+\textbf{Пример хитрой метрики}
+
+Хотим сделать расстояние на текстах
+
+$C(i, j)$ - расстояние между представлениями i и j слов
+
+$t_{ij}$ - количество смысла, перетекающего из $x_i$ в $z_j$
+
+$x_i$ - число вхождений некоторого слова i из словаря в текст x
+
+$\sum_{j = 1}^d t_{ij} = x_i$
+
+$\sum_{i = 1}^d t_{ij} = z_j$
+
+$t_{ij} \geq 0$
+
+Стоимость переноса смысла
+
+$\sum_{i, j = 1}^d t_{ij}C(i, j) = \mu(x, z) 
+\rightarrow min_{t_{ij}}$
+
+Для оптимального $t_{ij}$: $\mu(x, z) = \rho(x, z)$
+
+Задача оптимизации: min cost max flow
+
+\rule{\linewidth}{0.5pt}
+
+\subsection{Быстрый поисх ближайших соседей}
+
+Зачем?
+
+\begin{enumerate}
+    \item Задачи retrieval
+    \item Рекомендации
+    \item \dots
+\end{enumerate}
+
+\subsubsection{Точные методы}
+
+\begin{enumerate}
+    \item KD-деревья и другие структуры
+    
+    При росте d сложность приближается к линейной
+\end{enumerate}
+
+\subsubsection{Приближенные решения}
+
+\begin{enumerate}
+    \item LSH - locality sensitive hashing
+    \begin{enumerate}
+        \item \underline{Определение:}
+        
+        Семейство функций $\mathcal{F} = \{f: X \to H\}$
+        с распределением P(f) называется $(d_1, d_2, p_1, p_2)$
+        чувствительным, если
+
+        \begin{enumerate}
+            \item $p(x, z) \leq d_1 \Rightarrow 
+            P_{f \in \mathcal{F}}[f(x) = f(z)] \geq p_1$
+            \item $p(x, z) \geq d_1 \Rightarrow 
+            P_{f \in \mathcal{F}}[f(x) = f(z)] \leq p_2$
+        \end{enumerate}
+
+        \rule{\linewidth}{0.5pt}
+        
+        Пример: MinHash
+
+        Объекты - множества, $x \subset U = \{u_1, \ldots, u_n\}$
+
+        $\pi$ - перестановка на множестве U
+
+        $f_{\pi}(x) = \min \{\pi(i) \mid u_i \in A\}$
+
+        \underline{Утверждение:}
+
+        \[P_{\pi}[f_{\pi}(A) = f_{\pi}(B)] = 
+        \frac{\mid A \cap B \mid}{\mid A \cup B \mid}\]
+
+        \underline{Док-во:}
+
+        Три категории $u \in U$:
+
+        \begin{enumerate}
+            \item $u \in A, u \in B$
+            \item $u \in A, u \not{\in} B$
+            
+            или
+
+            $u \not{\in} A, u \in B$
+            \item $u \not{\in} A, u \not{\in} B$
+            
+            $\pi = 
+            \begin{pmatrix}
+                u_1 \\
+                u_2 \\
+                u_3 \\
+            \end{pmatrix}$
+
+            Одинаковые хэши для A и B?
+
+            $u$ из первой группы должны иметь меньший хэш
+
+            Какова доля перестановок, где хотя бы 1 элемент
+            первого типа идет раньше всех второго типа:
+
+            $\frac{p}{p + q} = 
+            \frac{\mid A \cap B \mid}{\mid A \cup B \mid}$
+
+            $\rho(A, B) = 1 - \frac{\mid A \cap B \mid}
+            {\mid A \cup B \mid}$
+
+            $\rho(A, B) \leq d_1 \Rightarrow 
+            P_{f \in \mathcal{F}}[f(x) = f(z)] =  \frac{\mid A \cap B \mid}
+            {\mid A \cup B \mid} = 1 - \rho(A, B) \geq 1 - d_1$
+
+            $\rho(A, B) \geq d_2 \Rightarrow P \leq 1 - d_1$
+
+            MinHash - $(d_1, d_2, 1 - d_1, 1 - d_2)$ чувствителен
+            
+            \rule{\linewidth}{0.5pt}
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
 \pagebreak
 
 \part{Семинары}
@@ -1949,10 +2124,8 @@ $u_1$ - собств. вектор $X^TX$ соотв. наибольшему с.
 \begin{align*}
     & X \in R^{\ell \times D} \\
     & Z \in R^{\ell \times d} \\
-    & U \in R^{d \times D}
-
-    & \textrm{Задача:}
-
+    & U \in R^{d \times D} \\
+    & \textrm{Задача:} \\
     & \norm{X - ZU^T}_F^2 \rightarrow min
 \end{align*}
 
