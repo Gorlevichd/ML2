@@ -1469,10 +1469,341 @@ $\sum_{i, j = 1}^d t_{ij}C(i, j) = \mu(x, z)
             $\rho(A, B) \geq d_2 \Rightarrow P \leq 1 - d_1$
 
             MinHash - $(d_1, d_2, 1 - d_1, 1 - d_2)$ чувствителен
+
+        \end{enumerate}
+
+        \rule{\linewidth}{0.5pt}
+
+        \item Для косинусного расстояния:
+        
+        \(\rho(x, y) = \arccos \frac{<x, y>}{\norm{x}\norm{y}}\)
+
+        \(\mathcal{F} = \{f_w(x) = sign<w, x> \mid w \in R^d\}\)
+
+        Геометрически: 
+        Накидываем случайные гиперплоскости w и смотрим с какой
+        стороны от них находятся точки
+
+        Если между точками угла маленький - вероятность их 
+        рассечения плоскостью мала
+
+        \item Для евклидова расстояния:
+        
+        \(\mathcal{F} = \{f_{w, b}(x) = \frac{<w, x> + b}{r} 
+        \mid w \in R^d, b \in [0, r)\}\)
+
+        Геометрически: проводим случайную прямую,
+        разбиваем на отрезки длины r. Значение хэш функции -
+        номер отрезка
+
+        \(w \sim \mathcal{N}(0, I)\)
+        \(b \sim U[0, r)\)
+
+        Если варьировать распределения, то можно получить
+        другие метрики:
+
+        Метрики Минковского - $\rho \in (0, 2]$
+
+        Манхэттенская метрика ($\rho = 1$): $w \sim Cauchy$
+
+        \item Проблема этих методов
+        \begin{enumerate}
+            \item Не очень устойчиво из-за вероятностного подхода
+            \item При большом расстоянии все равно есть вероятность
+            совпадения хэшей
+            \item Хотим форму сигмоиды, а не линейно 
+            убывающую вероятность равенства хэшей
+        \end{enumerate}
+
+    \item Композиция хэш-функций:
+    
+    \(g(x) = (f_1(x), \ldots, f_m(x))\)
+
+    Алгоритм: $x \rightarrow g(x) \rightarrow 
+    \{x_i \in X \mid g(x_i) = g(x)\} \rightarrow
+    $ Ищем ближайших соседей среди N(x)
+
+    \(d = \rho(x, z)\)
+
+    \(P(f_1(x) = f_1(z)) = p\)
+
+    \(P(g(x) = g(z)) = p^m\)
+
+    Степенная функция это не то, что нам нужно
+
+    Модифицируем:
+
+    \(g_1(x) = (f_{11}(x), \ldots, f_{1m}(x))\)
+    
+    \(\vdots\)
+
+    \(g_L(x) = (f_{L1}(x), \ldots, f_{Lm}(x))\)
+
+    \(P[[g_1(x) = g_1(z)] \mid \mid \ldots 
+    \mid \mid [g_L(x) = g_L(z)]] = 1 - (1 - p^m)^L\)
+
+    \item Теория:
+    
+    Алгоритм решает задачу поиска c-ближайшего соседа,
+    если для нового объекта u с вероятностью $1 - \epsilon$,
+    алгоритм возвращает объект выборки $z \in X: \rho(u, z) 
+    \leq C\rho(u, x_{\star})$, где $x_{\star}$ - ближайший сосед u
+
+    Для LSH:
+
+    \(\exists L, m: O(d \ell^n log \ell)\) - время поиска в LSH
+    \end{enumerate}
+
+    \item \textbf{NSW} (Navigable Small World)
+    
+    \begin{enumerate}
+        \item Small world graph -
+        если сгенерировать случайный граф - среднее расстояние
+        между двумя парами вершин очень близко
+        \item Представляем выборку в виде графа,
+        где у каждой вершины небольшая степень,
+        но выполняется свойство малого мира
+
+        \item \(G = (X, E)\)
+        
+        Задаем алгоритм жадного поиска:
+        \begin{enumerate}
+            \item u - новый объект
+            \item Берем случайную вершину v в G
+            \item В цикле: Среди всех соседей v ищем
+            вершину $v^{\prime}: \rho(v^{\prime}, u) < \rho(v, u)$
+            \item Если такой сосед нашелся - переходим в него
+            \item \underline{Используем мультистарт}
             
-            \rule{\linewidth}{0.5pt}
+            Находим множество результатов $C_u$, можно расширить 
+            это множестве окрестностями $C_u$ - выбираем ближайшие
+        \end{enumerate}
+
+        \item Добавление вершины u:
+        \begin{enumerate}
+            \item Мультистарт - $C(u)$
+            \item $D(u) = C(u) \cup $ окрестности вершины
+            \item Соединяем u с k ближайшими соседями из D(u)
+        \end{enumerate}
+
+        \item Особенность метода:
+        \begin{enumerate}
+            \item В графе есть области плотности и
+            связующие цепочки
+            \item Свойство малого мира достигается за счет
+            связующих цепочек - вершин с очень высокой степенью
         \end{enumerate}
     \end{enumerate}
+    \item \textbf{HNSW} (hierarchical NSW):
+    \begin{enumerate}
+        \item На следующий уровень пропускам только log от числа
+        вершин с некотрой вероятностью
+        \item Начинаем с самого верхнего уровня графа: 
+        находим ближайшего соседа
+        \item Начинаем из этой точки на более низком уровне,
+        ищем новую точку
+        \item \dots
+    \end{enumerate}
+\end{enumerate}
+
+\section{Задача ранжирования}
+
+\(X = \{x_1, \ldots, x_l\} \subset X\)
+
+\((i, j) \in R \subset \{1, \ldots, \ell\}^2 \Rightarrow
+a(x_i) > a(x_j)\)
+
+$\{1, \ldots, \ell\}^2$ - множество всех пар
+
+Обычно так:
+
+\(x = (q, d)\) - q - запрос, документ
+
+в R - пары $x_i = (q_i, d_i), x_j = (q_j, d_j)$, где $q_i = q_j$
+
+\underline{Метрики качества ранжирования}
+
+\begin{enumerate}
+    \item Наивный подход:
+    
+    \begin{enumerate}
+        \item \(R \rightarrow y_1, \ldots, y_{\ell}: 
+        (i, j) \in R \Rightarrow y_i > y_j\)
+        \item Обучаем $a(x_i) \approx y_i$, 
+        метрика - точность прогнозов
+        \item Модель может правильно ранжировать, но при этом
+        выдавать лейблы далекие от исходных и качество будет 
+        плохим при хорошем ранжировании
+    \end{enumerate}
+    
+    \item Дефектные пары:
+    
+    \(\frac{1}{\mid R \mid}\sum_{(i, j) \in R}[a(x_i) \leq a(x_j)]\)
+    
+    \item precision@k:
+    
+    Работает, когда таргет является разметкой релевантности
+    документов под запрос $y \in \{0, 1\}$
+
+    \(\sum_{i = 1}^K[y(i) = 1]\)
+
+    Проблема:
+
+    Не учитывает порядок выдачи в топ k документов
+
+    \item Average Precision@k(q)
+    
+    \(AP@k = \sum_{i = 1}^K \frac{y_i}{\sum_{j = 1}^K y_j} \times 
+    precision@i\)
+
+    \item MAP@k
+    
+    Q - множество запросов
+
+    \(MAP@k = \frac{1}{\mid Q \mid}\sum_{q \in Q}AP@k(q)\)
+
+    \item DCG@k (для небинарных меток)
+    
+    \(DCG@k(q) = \sum_{i = 1}^K g(y_i)d(i)\)
+
+    \(g(y)  2^y - 1\)
+    
+    \(d(i) = \frac{1}{log(i + 1)}\)
+
+    \item nDCG@k(q)
+    
+    \(nDCG@k(q) = \frac{DCG@k(q)}{max DCG@k(q)}\)
+
+    \item Каскадные метрики
+
+    pFound:
+
+    Пытается промоделировать поведение пользователей
+
+    $y \in [0, 1]$ - вероятность найти ответ в документе
+
+    $p_i$ - вероятность, что пользователь дойдет до i-ой
+    позиции в выдаче
+
+    $p_i = 1$
+
+    $p_{i + 1} = p_i(1 - y_i)(1 - p_{out})$
+
+    $p_out$ - вероятность, что пользователь уйдет
+
+    $pFound@k(q) = \sum_{i = 1}^K p_i \times y_i$
+\end{enumerate}
+
+\underline{Признаки для моделей ранжирования}
+
+\begin{enumerate}
+    \item Запросные признаки
+    
+    \begin{enumerate}
+        \item Эмбеддинг запроса
+        \item Популярность
+        \item Категория
+        \item Персонализация
+        \item Признаки про пользователя
+    \end{enumerate}
+
+    \item Статические - только про документ
+    
+    \begin{enumerate}
+        \item Эмбеддинг документа
+        \item Категория документа
+        \item PageRank
+        
+        $PR(d) = \frac{1 - \delta}{\mid D \mid} + 
+        \delta \sum_{c \in D_{d}^{in}} \frac{PR(c)}
+        {\mid D_c^{out} \mid}$ 
+
+        $D_d^{in}$ - мн-во документов, ссылающихся на d
+
+        $D_c^{out}$ - мн-во док., на которые ссылается c
+    \end{enumerate}
+
+    \item Динамические признаки - про пару/запрос документ
+    
+    \begin{enumerate}
+        \item Косинусное расстояние между эмбеддингами 
+        документа и запроса
+        \item BM25
+        
+        $q = q_1, q_2, \ldots, q_n$ - слова
+
+        $BM25(q, d) = \sum_{i = 1}^n IDF(q_i) \times 
+        \frac{TF(q_i, d) \times (K_1 + 1)}{TF(q_i, d) + 
+        K_1(1 + b + b\frac{\mid D \mid}{n_d})}$
+    \end{enumerate}
+\end{enumerate}
+
+\underline{Методы ранжирования}
+
+\begin{enumerate}
+    \item Pointwise - поточечные методы
+    
+    \(q: (d_1, y_1), \ldots, (d_{n_q}, y_{n_q})\)
+
+    \(\sum_{q \in Q}\sum_{i = 1}^{n_q} L(y_i, a(q, d_i)) 
+    \rightarrow \min_{a}\)
+
+    \item Попарные методы
+    
+    Главное, чтобы пары были правильно расположены относительно
+    друг друга
+
+    \((i, j) \in R \Rightarrow a(x_i) > a(x_j)\)
+
+    \(\frac{1}{\mid R \mid}\sum_{(i, j) \in R}[a(x_i) < a(x_j)]
+    rightarrow \min_a\)
+    
+    \(\frac{1}{\mid R \mid}\sum[a(x_i) - a(x_j) < 0] \leq\)
+
+    \(\leq \frac{1}{\mid R \mid}\sum_{(i, j \in R)}
+    \tilde{L}(a(x_i) - a(x_j)) \ rightarrow \min_{a}\)
+
+    \(\frac{1}{\mid R \mid}\sum log(1 + e^{a(x_j) - a(x_i)}) 
+    \rightarrow \min_{a}\)
+
+    Частный случай (RankNet):
+
+    \(a(x) = <w, x>\)
+    
+    \(\tilde{L}(z) = log(1 + e^{-\sigma z})\)
+    
+    \(w^t = w^{t - 1} + \eta \frac{\sigma}
+    {1 + exp(\sigma<x_j - x_i, w>}(x_j - x_i)\)
+
+    Используем метрику
+
+    \(\delta F_{ij}\) - как изменится метрика качества, 
+    если поменять \(x_i x_j\) местами
+
+    LambdaRank:
+
+    \(w^t = w^{t - 1} + \eta \frac{\sigma}
+    {1 + exp(\sigma<x_j - x_i, w>}\mid \delta F_{ij} \mid(x_j - x_i)\)
+
+    \item Списочные методы
+    
+    Напрямую оптимизируем метрики качества:
+
+    ListNet
+
+    \begin{align*}
+        & q_1, \ldots, q_m \\
+        & q: d_1, \ldots, d_{n_q} \\
+        & a(q, d_1) = z_1, \ldots, a(q, d_{n_q}) = z_{n_q} \\
+        & \frac{1}{m} \sum_{i = 1}^m nDCG@k(q_i) \rightarrow \max \\
+        & nDCG@k(q) = \sum_{i = 1}^K \frac{2^y(i)}{log(i + 1)} \\
+        & \textrm{Параметры модели зашиты в порядке ранжирования} \\
+        & nDCG@k(q, \pi(a)) = \sum_{i = 1}^K \frac{2^{y(\pi(i)}}{log(i + 1)} \downarrow\\
+        & E_{\pi}nDCG@k(q, \pi) = \sum_{\pi \in Sym(q_1, \ldots, q_{n_q})}
+        p(\pi)nDCG@k(q, \pi) \\
+        & \phi \textrm{ - неубывающая строго + функция} \\
+        & p_z(\pi) = \prod_{j = 1}
+    \end{align*}
 \end{enumerate}
 \pagebreak
 
@@ -2178,5 +2509,143 @@ $u_1$ - собств. вектор $X^TX$ соотв. наибольшему с.
         $\rho_{cos}(x, z) = 
         arccos(\frac{<x, z>}{\norm{x}\norm{z}})$
     \end{enumerate}
+\end{enumerate}
+
+\section{Метрические методы 2}
+
+\subsection{Расстояния на категориальных признаках}
+
+\underline{Один категориальный признак}
+
+Как измерить расстояния:
+
+\begin{enumerate}
+    \item $\rho(x, z) = [x \neq z]$
+    \item $\rho(x, z) = \alpha[x \neq z] + \beta[x = z]$
+    \item Сделать $\alpha, \beta$ зависимыми от признака
+    \item $\rho(x, z) = [x \neq z]log(f(x) + 1)log(f(z) + 1)$
+    
+    f(x) - сколько раз в обучающей выборке 
+    встречается категория x
+
+    \item $\rho(x, z) = [x \neq z] + [x = z] \times 
+    \sum_{q: p(q) \leq p(x) p_{j}^2(q)}$
+
+    $p(x)$ - частота
+
+    $p_{j}^2(x)$ - вероятность, что у пары объектов категория x
+\end{enumerate}
+
+\subsection{Обучение метрик}
+
+Зачем:
+
+\begin{enumerate}
+    \item Подобрать метрику для улучшения kNN
+    \item Когда необходимо разносить разные объекты по дальности
+\end{enumerate}
+
+Самая параметризованная метрика: Метрика Махаланобиса
+
+$\rho(x, z) = \norm{Ax  - Az}^2 = (x - z)^T A^TA (x - z)$
+
+Выучиваем матрицу $A \in R^{n \times d}$
+
+Методы обучения:
+
+\begin{enumerate}
+    \item NCA - neighborhood component analysis
+    
+    $x_i \rightarrow$ выбираем $x_j$ из некоторого распределения
+    $\rightarrow$ относим $x_i$ к $y_j$
+
+    \[p_{ij} = 
+    \begin{cases}
+        \frac{exp(- \norm{Ax_i - Ax_j}^2)}
+        {\sum_{i \neq j} exp(- \norm{Ax_i - Ax_j}^2)}, i \neq j \\
+        0, i = j
+    \end{cases}\]
+
+    Вероятность отнесения к правильному классу:
+
+    $C_i = \{j \mid y_j = y_i\}$
+
+    $p_i = \sum_{j \in C_i}p_{ij}$
+
+    $Q(A) = \sum_{i = 1}^{\ell}p_i \rightarrow \max_{A}$
+    \item LMNN - Large Margin NN
+    
+    Используем триплетный лосс:
+
+    Берем для $x_i$ положительные объекты и отрицательные объекты
+
+    $\eta_{ij} \in \{0, 1\}$ - является ли $x_j$ 
+    целевым объектом для $x_i$ (входит в k соседей)
+
+    Целевые объекты должны быть близки:
+
+    \begin{multline*}
+        \sum_{i \neq j} \xi_{ij}\norm{Ax_i - Ax_j}^2
+        + C\sum_{i = 1}^{\ell}\sum_{j \neq i}
+        \sum_{\substack{m \neq i \\ m \neq j}}\xi_{ij}
+        [y_m \neq y_i] \times \\
+        \times \max(0, \alpha + 
+        \norm{Ax_i - Ax_j}^2 - \norm{Ax_i - Ax_m}^2)
+        \rightarrow \min_{A}
+    \end{multline*}
+
+    \item ITML
+    
+    $p(x \mid A) = \frac{1}{z}exp(-\frac{1}{2}\norm{Ax - A\mu}^2)$
+
+    z - нормировочная константа
+
+    $\mu$ - центр распределения
+
+    S - мн-во пар, которые похожи
+
+    D - мн-во пар, которые не похожи
+
+    $A_0$ - априорная матрица для расстояния Махаланобиса:
+
+    Можно ввеси на основе выборочной ков. матрицы
+
+    Можно ввести как диагональную
+
+    \[\begin{cases}
+        KL(p(x \mid A_0) \mid\mid p(x \mid A)) \rightarrow \min_{A} \\
+        \rho_A(x_i, x_j) \leq u, (i, j) \in S \\
+        \rho_A(x_i, x_j) \geq L, (i, j) \in D
+    \end{cases}\]
+
+    \item MCML (Maximally collapsing metric learning)
+    
+    $p_A(j \mid i) = \frac{exp(- \norm{Ax_i - Ax_j}^2)}
+    {\sum_{k \neq i}exp(- \norm{Ax_i - Ax_k}^2)}$
+
+    $p_0(j \mid i) \propto
+    \begin{cases}
+        1, y_i = y_i \\
+        0, y_j \neq y_i
+    \end{cases}$
+
+    \[\sum_{i = 1}^{\ell} KL(p_0(\dot \mid i) 
+    \mid \mid p_A(\dot \mid i)) \rightarrow \min_A\]
+
+    \item Ядровой переход
+    
+    $K, \phi: X \to H$
+
+    $L: H \to R^n$
+
+    $\rho(x, z) = \norm{L\phi(x) - L\phi(z)}^2$
+
+    Ищем L:
+
+    Из функционального анализа:
+
+    \(L(h) = (<h, w_1>, \ldots, <h, w_n>), w_1, \ldots, w_n \in H\)
+
+    \(w_i = \sum_{j = 1}^{\ell} \alpha_{ij}\phi(x_j)\)
 \end{enumerate}
 \end{document}
