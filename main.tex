@@ -1799,11 +1799,311 @@ $\{1, \ldots, \ell\}^2$ - множество всех пар
         & nDCG@k(q) = \sum_{i = 1}^K \frac{2^y(i)}{log(i + 1)} \\
         & \textrm{Параметры модели зашиты в порядке ранжирования} \\
         & nDCG@k(q, \pi(a)) = \sum_{i = 1}^K \frac{2^{y(\pi(i)}}{log(i + 1)} \downarrow\\
-        & E_{\pi}nDCG@k(q, \pi) = \sum_{\pi \in Sym(q_1, \ldots, q_{n_q})}
+        & E_{\pi}nDCG@k(q, \pi) = \sum_{\pi 
+        \in Sym(q_1, \ldots, q_{n_q})}
         p(\pi)nDCG@k(q, \pi) \\
         & \phi \textrm{ - неубывающая строго + функция} \\
-        & p_z(\pi) = \prod_{j = 1}
+        & p_z(\pi) = \prod_{j = 1}^{n_q} \frac{\phi(z_{\pi(j)})}
+        {\sum_{k = j}^{n_q}\phi(z_{\pi(k)})}
     \end{align*}
+    
+    Свойства этого распределения:
+
+    \begin{enumerate}
+        \item Распределение на мн-ве всех перестановок $n_q$
+        документов
+        \item 
+        $\pi_i: d_i$ выше $d_j, z_i > z_j$
+        
+        $\pi^{\prime}:$ как $\pi_i$ только $d_i$ ниже $d_j$
+        
+        $p_z(\pi) > p_z(\pi^{\prime})$
+
+        \item Максимальную вероятность имеет перестановка 
+        с отсортированной по модели выборке
+    \end{enumerate}
+
+    Можно посчитать $\frac{\partial p_z(\pi)}{\partial a}$
+
+    Задача: $E_{\pi}nDCG@k(q, \pi) \rightarrow \max_{a}$
+
+    $\sum_{\pi 
+    \in Sym(q_1, \ldots, q_{n_q})}
+    p(\pi)nDCG@k(q, \pi) \rightarrow \max_a$
+
+    Очень много ($!n_q$) слагаемых
+
+    В ListNet перестановки делаются иначе:
+
+    Вероятность, что j документ попадет на 
+    первое место в перестановке:
+
+    $p_z(j) = \frac{\phi(z_j)}{\sum_{i = 1}^n \phi(x_i)}$
+
+    $Q(y, z) = - \sum_{j = 1}^{n_q}p_y(j)logp_z(j) \rightarrow \min_a$
+\end{enumerate}
+
+\section{Рекомендательные системы}
+
+Задача, где любые две сущности надо сопоставлять друг с другом
+
+Определения:
+
+Множество пользователей:
+
+$U = \{u_1, \ldots, u_n\}$
+
+Множество айтемов:
+
+$I = \{i_1, \dots, i_m\}$
+
+Для некоторых (u, i) $\exists r_{ui}$
+
+$R = \{(u, i) \mid \exists r_{ui}\}$
+
+Нужно найти $a(u, i)$
+
+$U \xrightarrow{\textrm{Запрос}}$ Отбор кандидатов 
+$\rightarrow$ Ранжирование $\rightarrow$ Переранжирование с
+учетом бизнес-требований $\rightarrow$ выдача
+
+\subsection{Методы}
+
+\begin{enumerate}
+    \item Коллаборационная фильтрация:
+    
+    Используем только информацию о взаимодействиях
+
+    $R = \begin{pmatrix}
+        r_{u_1i_1} \ldots r_{un} \\
+        r_{u_2i_1} \ldots \ldots
+    \end{pmatrix}$
+
+    \begin{enumerate}
+        \item Memory-based методы
+        
+        Просто используем эвристики - 
+        находим похожих пользователей и рекомендуем то,
+        что понравилось им
+
+        \item Модели со скрытыми переменными
+        
+        $p_u \in R^d$ - вектор пользователя
+
+        $q_i \in R^d$ - вектор айтема
+
+        Обучаем так, чтобы:
+
+        $r_{ui} \approx <p_u, q_i>$
+
+        $(\star) \sum_{u, i \in R} (r_{ui} - w_u - w_i - <p_u, q_i>) 
+        \rightarrow \min_{\substack{p_u, q_i \\ w_u, w_i}}$
+
+        Наблюдение 1:
+
+        $R \in R^{n \times m}$
+
+        $P = (p_1 \mid \ldots \mid p_n) \in R^{d \times n}$
+
+        $Q = (q_1 \mid \ldots \mid q_n) \in R^{d \times m}$
+
+        $(P^TQ)_{ui} = <p_u, q_i>$
+
+        $\norm{R - P^TQ}_F \rightarrow \min_{P, Q}$
+
+        Если матрица R известна, то это задача низкорангового 
+        приближения R - SVD
+
+        PureSVD: Заполняем все пропуски нулями и 
+        применяем обычный SVD
+
+        Наблюдение 2: 
+
+        Если знаем все $q_i$
+
+        Рассмотрим конкретного пользователя:
+
+        $\sum_{i : \exists r_{ui}} (r_{ui} - w_u - 
+        w_i - <p_u, q_i>)^2 \rightarrow \min_{p_u \in R^d}$
+
+        Задача сводится к линейной регрессииU
+
+        Где это может пригодится?
+        \begin{enumerate}
+            \item Обучили (*), получили P, Q
+            - матрицу Q можно хранить на серверах
+
+            Когда приходит u решаем задачу линейной регрессии,
+            обучая $p_u$
+
+            Не нужно хранить p
+
+            Можно учесть самые свежие действия пользователя
+            \item Можно фиксировать все $q_i$ на основе контента
+            айтема i
+        \end{enumerate}
+
+        Обучение LFM:
+
+        \begin{enumerate}
+            \item SGD
+            
+            Задача невыпуклая - можно попасть в локальный минимум
+
+            \item ALS (alternating least squares)
+            
+            Фиксируем P, находим Q 
+            $\rightarrow$ Фиксируем Q, находим P
+            $\rightarrow \ldots$
+        \end{enumerate}
+
+        Наблюдение 3:
+
+        Если нашли идеальное решение $R = P^TQ$
+
+        $\norm{r_i}$ - насколько всем пользователям
+        нравится этот айтем
+
+        Даже если много единиц, то норма все равно будет
+        большой $\rightarrow$ популярность айтема i
+
+        $r_i = P^Tq_i$
+
+        $\sigma_{min}(P) \times \norm{q_i} \geq \norm{r_i} 
+        \leq \sigma_{max}(P) \times \norm{q_i}$
+
+        \rule{\linewidth}{0.5pt}
+
+        \begin{center}
+            \textit{Сингулярное разложение}
+        \end{center}
+
+        Пусть дана матрица $F_{n \times m}$. Тогда F
+        можно представить в следующем виде:
+
+        \[F_{n \times m} =
+        U_{n \times n}
+        \Sigma_{n \times m}
+        V^T_{m \times m}\]
+
+        Основные свойства сингулярного разложения:
+
+        \begin{enumerate}
+            \item $n \times n$-матрица $U=(u_1, \dots, u_n)$ 
+            ортогональна, 
+            $U^TU=I_n$,
+            столбцы $u_j$ — собственные векторы матрицы $FF^T$
+            \item $m \times m$-матрица $V=(v_1, \dots, v_n)$ 
+            ортогональна, 
+            $V^TV=I_m$,
+            столбцы $v_j$ — собственные векторы матрицы $F^TF$
+            \item $n \times m$-матрица $\Sigma_{n \times m}$
+            диагональная, 
+            $\Sigma_{n \times m} = diag(\sqrt{\lambda_1}, 
+            \dots, \sqrt{\lambda_n})$,
+            $\lambda_j \geq 0$ — собственные значения матриц 
+            $F^TF$ и $FF^T$
+            $\sqrt{\lambda_i}$ - сингулярные числа
+        \end{enumerate}
+
+        \rule{\linewidth}{0.5pt}
+
+        Пусть i популярен - $\norm{q_i} \gg 0 \rightarrow$
+        для многих пользователей $<p_u, q_i> \gg 0$ 
+
+        Хак: Заменяем a(x) = $<p_u, q_i>$ на
+        $a(x) = \frac{<p_u, q_i>}{\norm{p_u}\norm{q_i}}$
+
+        Наблюдение 3':
+        i: 5 показов, 4 успешных $\rightarrow$ высокий CTR
+        $\rightarrow$ норма становится высокой, но 
+        большой CTR может быть случайностью на низком количестве
+        показов
+
+        Надо регуляризировать с учетом норм $q_i, p_u$
+
+        Наблюдение 4:
+
+        LFM: $(\mid U \mid + \mid I \mid)(d + 1)$ параметров
+
+        Увеличиваем количество параметров с помощью Neural CF:
+
+        \begin{enumerate}
+            \item Берем эмбеддинги $p_u, q_i$
+            \item Конкатенируем эмбединги в один вектор
+            \item Наворачиваем сверху полносвязные слои
+            \item В конце они должны предсказывать $r_{ui}$
+            
+            Для задачи лучше использовать не полносвязные слои,
+            чтобы не застревать в локальных минимумах
+        \end{enumerate}
+
+        Factorization Machines - обобщение LFM
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Работа с неявным фидбэком}
+
+Явный фидбэк: пользователь непосредственно поставил оценку
+
+Неявный фидбэк: факт покупки, факт просмотра, ...
+
+\textbf{iALS}
+
+$S_{ui} = \begin{cases}
+    1, \exists r_{ui} \\
+    0, \not{\exists} r_{ui}
+\end{cases}$
+
+$C_{ui} = 1 + [\exists r_{ui}] \alpha r_{ui}$
+
+$\alpha$ может принимать различные значения в зависимости 
+от градации позитивности неявного фидбэка
+
+Модель:
+
+\[\sum_{\substack{u \in U \\ i \in I}} C_{ui}(S_{ui} - 
+w_u - w_i - <p_u, q_i>)^2 + \lambda \dots\]
+
+\subsection{Контентные рекомендации}
+
+Подходы
+
+\begin{enumerate}
+    \item
+    $q_i = f(i)$ - считаем $q_i$ по контенту
+
+    Обучаем $(a_i)$
+     
+    \item DSSM, Siameese Nets
+    
+    $i \rightarrow$ контент $\rightarrow$ превращаем в вектор
+    $q_i$
+
+    $u \rightarrow$ история $(i_1, i_2, \dots) \rightarrow$
+    превращаем в вектор $p_u$
+
+    Требуем, чтобы $corr(\rho(p_u, q_i), r_{ui}) \uparrow$
+
+    Для обучения используем триплетную функцию потерь
+\end{enumerate}
+
+\subsection{Как это все используется}
+
+\begin{enumerate}
+    \item Отбор кандидатов
+    \begin{enumerate}
+        \item Эвристики
+        \item Легкая модель
+        \item Поиск ближайших соседей
+        \item Графовые методы
+        \begin{enumerate}
+            \item Двудольный граф с пользователями и айтемами
+            \item Запускаем случайное блуждание
+        \end{enumerate}
+    \end{enumerate}
+    \item Ранжирование
+    $(u, i) \rightarrow$ признаки
 \end{enumerate}
 \pagebreak
 

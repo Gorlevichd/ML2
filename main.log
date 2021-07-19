@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  16 JUL 2021 12:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  19 JUL 2021 16:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -681,57 +681,97 @@ Overfull \hbox (16.49207pt too wide) in paragraph at lines 1729--1731
 []\T2A/cmr/m/n/12  осинусное рассто€ние между эмбеддингами документа и запроса 
  []
 
-[33] [34] [35] [36]
-Overfull \hbox (84.28342pt too wide) detected at line 1899
+[33] [34]
+Overfull \hbox (23.01833pt too wide) in paragraph at lines 1822--1824
+[]\T2A/cmr/m/n/12 ћаксимальную веро€тность имеет перестановка с отсортированной
+ []
+
+
+Overfull \hbox (5.10016pt too wide) in paragraph at lines 1838--1840
+[]\T2A/cmr/m/n/12 ¬еро€тность, что j документ попадет на первое место в перестановке: 
+ []
+
+[35]
+Overfull \hbox (6.53961pt too wide) in paragraph at lines 1885--1888
+[]\T2A/cmr/m/n/12 ѕросто используем эвристики - находим похожих пользователей
+ []
+
+
+Overfull \hbox (36.00407pt too wide) in paragraph at lines 1914--1916
+[]\T2A/cmr/m/n/12 ≈сли матрица R известна, то это задача низкорангового приближени€
+ []
+
+
+Overfull \hbox (11.91968pt too wide) in paragraph at lines 1917--1919
+[]\T2A/cmr/m/n/12 PureSVD: «аполн€ем все пропуски нул€ми и примен€ем обычный
+ []
+
+[36]
+Overfull \hbox (12.94695pt too wide) in paragraph at lines 1936--1938
+[]\T2A/cmr/m/n/12  огда приходит u решаем задачу линейной регрессии, обуча€
+ []
+
+
+Overfull \hbox (1.92189pt too wide) in paragraph at lines 1951--1952
+[]\T2A/cmr/m/n/12 «адача невыпукла€ - можно попасть в локальный минимум 
+ []
+
+[37]
+Overfull \hbox (25.23366pt too wide) in paragraph at lines 2000--2007
+[]$\OML/cmm/m/it/12 n \OMS/cmsy/m/n/12 ^^B \OML/cmm/m/it/12 m$\T2A/cmr/m/n/12 -матрица $\OT1/cmr/m/n/12 ^^F[]$ \T2A/cmr/m/n/12 диагональна€, $\OT1/cmr/m/n/12 ^^F[] = \OML/cmm/m/it/12 diag\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; [] ; []\OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 ,
+ []
+
+[38] [39] [40]
+Overfull \hbox (84.28342pt too wide) detected at line 2199
 \OML/cmm/m/it/12 g\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^U[]; ^^W[]\OT1/cmr/m/n/12 ) = [](\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^U[]f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^W[]h[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^U[]f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^W[]h[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )
  []
 
 
-Overfull \hbox (10.60197pt too wide) in paragraph at lines 1904--1906
+Overfull \hbox (10.60197pt too wide) in paragraph at lines 2204--2206
 []\T2A/cmr/m/n/12 ≈сли решить безусловную задачу при подставлении $\OML/cmm/m/it/12 ^^U[]; ^^W[]$\T2A/cmr/m/n/12 , то получим
  []
 
-[37] [38] [39] [40]
-Underfull \hbox (badness 10000) in paragraph at lines 2084--2086
+[41] [42] [43] [44]
+Underfull \hbox (badness 10000) in paragraph at lines 2384--2386
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2102--2105
+Underfull \hbox (badness 10000) in paragraph at lines 2402--2405
 
  []
 
 
-Overfull \hbox (14.12779pt too wide) in paragraph at lines 2114--2116
+Overfull \hbox (14.12779pt too wide) in paragraph at lines 2414--2416
 []\T2A/cmr/m/n/12 ≈сли параметры распределены нормально - Ќормальный дискриминантный
  []
 
-[41]
-Overfull \hbox (4.26755pt too wide) in paragraph at lines 2169--2171
+[45]
+Overfull \hbox (4.26755pt too wide) in paragraph at lines 2469--2471
 []$\OML/cmm/m/it/12 u[]; [] ; u[]$ \T2A/cmr/m/n/12 - собственные векторы, соотв. минимальным собственным
  []
 
-[42]
-Overfull \hbox (3.7779pt too wide) in paragraph at lines 2180--2182
+[46]
+Overfull \hbox (3.7779pt too wide) in paragraph at lines 2480--2482
 []\T2A/cmr/m/n/12 ¬ t-SNE ошибка может быть неограничено большой $\OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 зашумленные
  []
 
 
-Overfull \hbox (24.33197pt too wide) detected at line 2246
+Overfull \hbox (24.33197pt too wide) detected at line 2546
 []
  []
 
-[43] [44]
-Overfull \hbox (8.64636pt too wide) in paragraph at lines 2300--2302
+[47] [48]
+Overfull \hbox (8.64636pt too wide) in paragraph at lines 2600--2602
 []\T2A/cmr/m/n/12 ѕо векторным описани€м строим псевдоразметку с помощью KMeans 
  []
 
 
-Overfull \hbox (11.03676pt too wide) in paragraph at lines 2313--2315
+Overfull \hbox (11.03676pt too wide) in paragraph at lines 2613--2615
 []\T2A/cmr/m/n/12 Ќаличие пустых кластеров - берем случайный центр другого кластера
  []
 
-[45] [46] [47] [48] [49] [50] [51] (./main.aux) ) 
+[49] [50] [51] [52] [53] [54] [55] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  5145 strings out of 478846
  64982 string characters out of 5859785
@@ -741,10 +781,10 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  69i,17n,76p,361b,971s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on main.pdf (51 pages, 516959 bytes).
+Output written on main.pdf (55 pages, 530153 bytes).
 PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 206 compressed objects within 3 object streams
+ 309 PDF objects out of 1000 (max. 8388607)
+ 215 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
