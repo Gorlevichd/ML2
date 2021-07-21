@@ -2105,6 +2105,143 @@ w_u - w_i - <p_u, q_i>)^2 + \lambda \dots\]
     \item Ранжирование
     $(u, i) \rightarrow$ признаки
 \end{enumerate}
+
+\section{AutoML}
+
+\subsection{Что такое AutoML}
+
+\begin{enumerate}
+    \item Автоматизация некоторого этапа ML
+    \item Система, которая способна полностью решать бизнес задача
+\end{enumerate}
+
+\textbf{Уровни AutoML}
+
+\begin{enumerate}
+    \item Сами алгоритмы
+    \item API к алгоритмам
+    \item Автоматическая оптимизация гиперпараметров / подбор ансамблей
+    \item Автоматическая генерация признаков, 
+    аугментаций, отбор признаков, визуализация
+    \begin{enumerate}
+        \item Стратегии обучения + управление бюджетом
+        \item Простое Meta обучение
+    \end{enumerate}
+    \item Автоматическое определение домена, 
+    объединение табличек без знания структуры базы данных, 
+    спецификация под задачу
+    \item Полная оптимизация, работает лучше, чем люди
+\end{enumerate}
+
+\textit{Перспективные направления}
+
+\begin{enumerate}
+    \item Продвинутое Meta learning
+    \item Domain Specific Language
+    \item Базы знаний
+\end{enumerate}
+
+Бывают проприетарные и открытые AutoML, так же
+есть исследовательские и индстриальные
+
+\subsection{Зачем нужен AutoML?}
+
+\begin{enumerate}
+    \item ML выгоден, AutoML быстрый - не нужно таких затрат на работу
+    \item Автоматическое решение обходят только специалисты и для этого нужно время
+\end{enumerate}
+
+\subsection{Элементы AutoML}
+
+\begin{enumerate}
+    \item Данные
+    \begin{enumerate}
+        \item Нет предобработки
+        \item Разные источники и форматы
+        \item Структурированные и неструктурированные
+    \end{enumerate}
+    \item Black Box
+    \begin{enumerate}
+        \item Препроцессинг
+        \item Генерация признаков
+        \item Выбор гиперпараметров
+        \item Обучение модели / ансамбля - оптимизация целевой метрики
+    \end{enumerate}
+    \item Предсказания
+\end{enumerate}
+
+Экспертная система:
+
+\begin{enumerate}
+    \item K-раз прогоняем препроцессинг с учетом уже построенных ранее моделей
+    \item Генерация признаков + выбор гиперпараметров
+    \item Обучение модели
+\end{enumerate}
+
+Нелинейная связь между элементами - результат каждого этапа 
+может влиять на предыдущий
+
+\subsection{Существующие решения}
+
+\begin{enumerate}
+    \item AutoSklearn
+    \begin{enumerate}
+        \item Умеет работать в сжатые сроки
+        \item Оптимизируется байсовским оптимизатором
+        \item Модели на каждой итерации байесовского оптимизатора сохраняются
+        \item Для каждого датасета нашли оптимальный пайплайн и построили метамодель - 
+        использование 25 оптимальных кандидатов и постройка ансамбля для похожих датасетов
+    \end{enumerate}
+    \item AutoSklearn 2.0
+    \begin{enumerate}
+        \item Увеличили размер метадатасета - разносторонние пайплайны
+    \end{enumerate}
+    \item Oboe
+    \begin{enumerate}
+        \item На основе метамоделей позволяет эффективно строить модели
+        \item Признаки основаны на качестве модели, а не статистиках датасета
+        \item Восстанавливаем матрицу ошибок простыми моделям
+    \end{enumerate}
+    \item TensorOboe
+    \begin{enumerate}
+        \item Вместо матрицы ошибок тензор ошибок
+    \end{enumerate}
+    \item TPOT
+    \begin{enumerate}
+        \item Строят дерево и оптимизируют его генетическим алгоритмом
+    \end{enumerate}
+    \item AutoGluon
+    \begin{enumerate}
+        \item Используют многоуровневые сети и LightGBM
+        \item Делают бэггинг и K-fold валидации
+        \item Дамп моделей занимает 200 гб
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Анализ и выводы}
+
+Слабые пайплайны:
+
+\begin{enumerate}
+    \item Простые / неэффективные модели
+    \item Наивный препроцессинг и генерация признаков 
+\end{enumerate}
+
+Мета-алгоритмы:
+
+\begin{enumerate}
+    \item Маленькие наборы датасетов
+    \item Синтетические, игрушечные и странные датасеты
+    \item Слишком широкая сетка гиперпараметров
+    \item Вычислительно дорогая оптимизация параметров
+\end{enumerate}
+
+\subsection{Бэнчмарки}
+
+\begin{enumerate}
+    \item OpenML
+    \item AutoCV, AutoNLP, AutoTS, AutoSignal, ..., AutoDL
+\end{enumerate}
 \pagebreak
 
 \part{Семинары}
