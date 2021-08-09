@@ -1,4 +1,5 @@
 \documentclass[a4paper, 12pt]{article}
+\author{Горлевич Даниил}
 \usepackage{cmap}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -20,7 +21,7 @@
 \newcommand\norm[1]{\left\lVert#1\right\rVert}
 
 \title{МО2}
-\date{March 2021}
+\date{2021}
 
 \begin{document}
 
@@ -2243,6 +2244,70 @@ w_u - w_i - <p_u, q_i>)^2 + \lambda \dots\]
     \item AutoCV, AutoNLP, AutoTS, AutoSignal, ..., AutoDL
 \end{enumerate}
 \pagebreak
+
+\section{Рекомендательные системы 2}
+
+Подход:
+
+\begin{enumerate}
+    \item Есть user, есть item
+    \item Прогоняем через сеть и получаем эмбеддинг для item
+    \item Для item, которые понравились пользователю строим эмбединги и
+    превращаем их вектор user
+    \item Верхним слоем подгоняем выход из этих двух эмбеддингов к рейтингу
+\end{enumerate}
+
+\subsection{Холодный старт}
+
+Новый пользователь:
+
+\begin{enumerate}
+    \item Показывать популярное
+    \item Факторы по гео/соц/дем
+    \item Модерируемые холодные подборки
+    \item Опросить пользователя о его интересах
+\end{enumerate}
+
+Новый айтем:
+
+\begin{enumerate}
+    \item Найти пользователей, которые смотрели похожие айтемы
+    \item Подписчикам канала
+    \item Гарантировать новому айтему некоторое количество рандомных показов
+\end{enumerate}
+
+\subsection{Метрики качества рекомендаций}
+
+\begin{enumerate}
+    \item Оффлайн
+    \begin{enumerate}
+        \item Исторические данные: 
+        $u_1: i_1, i_2, \dots, i_n$
+        $u_2: \dots$
+        $\vdots$
+        $u_m: \dots$
+    \item Как разбивать на обучение и тест:
+    \begin{enumerate}
+        \item Важно: разбивать по времени
+        \item Интересы и запросы могут сильно изменятся во времени - 
+        надо смотреть качество на онлайне
+    \end{enumerate}
+    \end{enumerate}
+    \item Онлайн
+    \begin{enumerate}
+        \item A/B тестирование
+        \item Бизнес-метрики
+        \item Метрики про качество угадывания
+        \item По пользовательским сигналам отбирать сомнительный контент
+        \item Разнообразие - вероятности, 
+        которые мы предсказуем может быть скоррелирована 
+        по разным выданным айтемам
+        \item Serendipity - успешные рекомендации редких или 
+        непохожих на историю пользователя айтемов
+    \end{enumerate}
+\end{enumerate}
+
+\section{Нейросетевые методы для табличных данных}
 
 \part{Семинары}
 \section{Семинар: Задачи условной оптимизации}

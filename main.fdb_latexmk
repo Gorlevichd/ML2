@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1626702272 "c:/Users/Tatyana/Downloads/ML2/main.tex" "main.pdf" "main" 1626702274
+["pdflatex"] 1628535141 "c:/Users/Tatyana/Downloads/ML2/main.tex" "main.pdf" "main" 1628535144
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/labx1200.tfm" 1621248058 3308 eee81981029f67083258db36df06e523 ""
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/labx1440.tfm" 1621248056 3304 6a543c07045572737981351171e0505e ""
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/labx1728.tfm" 1621248051 3312 d199be9bd555944e2403193d58a0256a ""
@@ -14,7 +14,7 @@
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/larm1728.tfm" 1621248049 3252 3140686608bdcae603a09a7973fb9e55 ""
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/larm2074.tfm" 1623070374 3264 c29ba0a7d68c56f5a738fbe91d6d9e9d ""
   "c:/Users/Tatyana/.texlive2021/texmf-var/fonts/tfm/lh/lh-t2a/lati1200.tfm" 1621248664 3512 f3a56cfe95a159371df20f73d1eb107d ""
-  "c:/Users/Tatyana/Downloads/ML2/main.tex" 1626702268 110091 71bd85d99b987cabe25100c025e3b798 ""
+  "c:/Users/Tatyana/Downloads/ML2/main.tex" 1628535140 119041 42e5b78197b9e956b8ee3869185603f3 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc" 1621171896 3141 82d5616418ed8d5de703b3951bedecb4 ""
   "c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1621171896 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "c:/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1621172922 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -120,9 +120,9 @@
   "c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1621249303 5218828 4f303caef798cf9a3da258509a8ce44e ""
   "c:/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1621249345 2735171 4e7cf45602bbd80e4227a27889528652 ""
   "c:/texlive/2021/texmf.cnf" 1621176414 713 e69b156964470283e0530f5060668171 ""
-  "main.aux" 1626702274 6424 7d6aef80864480e36ae617ef32167480 "pdflatex"
-  "main.tex" 1626702268 110091 71bd85d99b987cabe25100c025e3b798 ""
+  "main.aux" 1628535143 7829 9260ce58df7dc82fbdae376c41139cd3 "pdflatex"
+  "main.tex" 1628535140 119041 42e5b78197b9e956b8ee3869185603f3 ""
   (generated)
-  "main.aux"
   "main.log"
+  "main.aux"
   "main.pdf"
