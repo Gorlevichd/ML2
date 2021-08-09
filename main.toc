@@ -1,0 +1,60 @@
+\babel@toc {english}{}
+\contentsline {part}{I\hspace {1em}Лекции}{3}{}%
+\contentsline {section}{\numberline {1}Ядровые методы}{3}{}%
+\contentsline {section}{\numberline {2}Аппроксимации ядер, EM алгоритм}{8}{}%
+\contentsline {subsection}{\numberline {2.1}Метод случайных признаков Фурье}{8}{}%
+\contentsline {subsection}{\numberline {2.2}EM алгоритм}{9}{}%
+\contentsline {section}{\numberline {3}ЕМ алгоритм 2}{11}{}%
+\contentsline {section}{\numberline {4}Поиск аномалий}{12}{}%
+\contentsline {section}{\numberline {5}Обучение без учителя}{16}{}%
+\contentsline {subsection}{\numberline {5.1}DBScan}{17}{}%
+\contentsline {subsection}{\numberline {5.2}Иерархическая кластеризация}{18}{}%
+\contentsline {subsection}{\numberline {5.3}Графовая кластеризация}{19}{}%
+\contentsline {section}{\numberline {6}Метрики качества классификации, тематическое моделирование}{22}{}%
+\contentsline {subsection}{\numberline {6.1}Affinity Propagation}{22}{}%
+\contentsline {subsection}{\numberline {6.2}Оценка качества кластеризации}{23}{}%
+\contentsline {subsection}{\numberline {6.3}Подбор метрик для продукта}{24}{}%
+\contentsline {section}{\numberline {7}Тематическое моделирование}{24}{}%
+\contentsline {subsection}{\numberline {7.1}LSA (Latent Semantic Analysis)}{25}{}%
+\contentsline {subsection}{\numberline {7.2}PLSA}{25}{}%
+\contentsline {subsection}{\numberline {7.3}LDA (Latent Dirichlet Allocation)}{26}{}%
+\contentsline {section}{\numberline {8}Частичное обучение (semisupervised)}{26}{}%
+\contentsline {section}{\numberline {9}Метрические методы}{29}{}%
+\contentsline {subsection}{\numberline {9.1}Быстрый поисх ближайших соседей}{30}{}%
+\contentsline {subsubsection}{\numberline {9.1.1}Точные методы}{30}{}%
+\contentsline {subsubsection}{\numberline {9.1.2}Приближенные решения}{30}{}%
+\contentsline {section}{\numberline {10}Задача ранжирования}{34}{}%
+\contentsline {section}{\numberline {11}Рекомендательные системы}{38}{}%
+\contentsline {subsection}{\numberline {11.1}Методы}{38}{}%
+\contentsline {subsection}{\numberline {11.2}Работа с неявным фидбэком}{40}{}%
+\contentsline {subsection}{\numberline {11.3}Контентные рекомендации}{41}{}%
+\contentsline {subsection}{\numberline {11.4}Как это все используется}{41}{}%
+\contentsline {section}{\numberline {12}AutoML}{41}{}%
+\contentsline {subsection}{\numberline {12.1}Что такое AutoML}{41}{}%
+\contentsline {subsection}{\numberline {12.2}Зачем нужен AutoML?}{42}{}%
+\contentsline {subsection}{\numberline {12.3}Элементы AutoML}{42}{}%
+\contentsline {subsection}{\numberline {12.4}Существующие решения}{43}{}%
+\contentsline {subsection}{\numberline {12.5}Анализ и выводы}{44}{}%
+\contentsline {subsection}{\numberline {12.6}Бэнчмарки}{44}{}%
+\contentsline {section}{\numberline {13}Рекомендательные системы 2}{45}{}%
+\contentsline {subsection}{\numberline {13.1}Холодный старт}{45}{}%
+\contentsline {subsection}{\numberline {13.2}Метрики качества рекомендаций}{45}{}%
+\contentsline {section}{\numberline {14}Нейросетевые методы для табличных данных}{46}{}%
+\contentsline {part}{II\hspace {1em}Семинары}{46}{}%
+\contentsline {section}{\numberline {15}Семинар: Задачи условной оптимизации}{46}{}%
+\contentsline {section}{\numberline {16}Семинар 3: EM алгоритм}{48}{}%
+\contentsline {section}{\numberline {17}Семинар 4: Основы байсовских методов}{50}{}%
+\contentsline {section}{\numberline {18}Семинар 5: Спектральная кластеризация}{53}{}%
+\contentsline {section}{\numberline {19}Семинар 6: Отбор признаков}{56}{}%
+\contentsline {subsection}{\numberline {19.1}Deep Clustering}{56}{}%
+\contentsline {subsection}{\numberline {19.2}Positional Encoding}{56}{}%
+\contentsline {subsection}{\numberline {19.3}Спектральный анализ}{56}{}%
+\contentsline {subsection}{\numberline {19.4}Positional encoding}{57}{}%
+\contentsline {subsection}{\numberline {19.5}Feature extraction}{57}{}%
+\contentsline {section}{\numberline {20}Работа с признаками}{57}{}%
+\contentsline {subsection}{\numberline {20.1}Отбор признаков}{57}{}%
+\contentsline {subsection}{\numberline {20.2}Понижение размерности}{58}{}%
+\contentsline {section}{\numberline {21}Метод k ближайших соседей}{59}{}%
+\contentsline {section}{\numberline {22}Метрические методы 2}{60}{}%
+\contentsline {subsection}{\numberline {22.1}Расстояния на категориальных признаках}{60}{}%
+\contentsline {subsection}{\numberline {22.2}Обучение метрик}{60}{}%

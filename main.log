@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  9 AUG 2021 21:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.5.17)  9 AUG 2021 21:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -390,457 +390,466 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
  (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 50--52
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 53--55
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 58--60
-
- []
-
-
-Overfull \hbox (6.79573pt too wide) in paragraph at lines 61--62
-[]\T2A/cmr/m/n/12 w является линейной комбинацией строк $\OT1/cmr/m/n/12 ^^H \OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 Решение можно искать
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--65
-
- []
-
-
-Overfull \hbox (4.61974pt too wide) in paragraph at lines 66--68
-[]$\OT1/cmr/m/n/12 ^^H^^H[]$ \T2A/cmr/m/n/12 - матрица Грама (попарных скалярных произведений объектов) 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 66--68
-
+) (./main.toc
+Overfull \hbox (42.22346pt too wide) in paragraph at lines 13--13
+ [] []\T2A/cmr/bx/n/12 Метрики качества классификации, тематическое моделирование []  
  []
 
 [1
 
-{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (10.06381pt too wide) in paragraph at lines 87--88
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2])
+\tf@toc=\write3
+\openout3 = `main.toc'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--54
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 55--57
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
+
+ []
+
+
+Overfull \hbox (6.79573pt too wide) in paragraph at lines 63--64
+[]\T2A/cmr/m/n/12 w является линейной комбинацией строк $\OT1/cmr/m/n/12 ^^H \OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 Решение можно искать
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 65--67
+
+ []
+
+[3]
+Overfull \hbox (4.61974pt too wide) in paragraph at lines 68--70
+[]$\OT1/cmr/m/n/12 ^^H^^H[]$ \T2A/cmr/m/n/12 - матрица Грама (попарных скалярных произведений объектов) 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 68--70
+
+ []
+
+
+Overfull \hbox (10.06381pt too wide) in paragraph at lines 89--90
 []\T2A/cmr/m/n/12 Используем метод, который использует скалярные произведения
  []
 
 
-Overfull \hbox (13.15106pt too wide) in paragraph at lines 102--103
+Overfull \hbox (13.15106pt too wide) in paragraph at lines 104--105
 []\T2A/cmr/m/it/12 На практике теорема Мерсера слишком сложна для применения 
  []
 
-[2]
-Overfull \hbox (20.94157pt too wide) in paragraph at lines 147--148
+[4]
+Overfull \hbox (20.94157pt too wide) in paragraph at lines 149--150
 []\T2A/cmr/m/n/12 Конечномерное спрямляющее пространство, но можно сделать
  []
 
 
-Overfull \hbox (34.11292pt too wide) in paragraph at lines 152--153
+Overfull \hbox (34.11292pt too wide) in paragraph at lines 154--155
 []\T2A/cmr/m/n/12 Позволяет перевести в бесконечномерное спрямляющее пространство 
  []
 
-[3]
-Overfull \hbox (28.69437pt too wide) in paragraph at lines 161--162
+[5]
+Overfull \hbox (28.69437pt too wide) in paragraph at lines 163--164
 []$\OML/cmm/m/it/12 exp [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 exp [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 exp [] \OT1/cmr/m/n/12 =
  []
 
 
-Overfull \hbox (26.2827pt too wide) in paragraph at lines 172--173
+Overfull \hbox (26.2827pt too wide) in paragraph at lines 174--175
 \T2A/cmr/m/n/12 ЛНЗ $\OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 бесконечное количество ЛНЗ векторов $\OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 бесконечномерное
  []
 
 
-Overfull \hbox (49.23114pt too wide) detected at line 181
+Overfull \hbox (49.23114pt too wide) detected at line 183
 \OML/cmm/m/it/12 L\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w; b; ^^X; ^^U; ^^V\OT1/cmr/m/n/12 ) = []\OMS/cmsy/m/n/12 jj\OML/cmm/m/it/12 w\OMS/cmsy/m/n/12 jj[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 C [] ^^X[] \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 ^^U[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 y[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 < w; x[] > \OT1/cmr/m/n/12 +\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1 + \OML/cmm/m/it/12 ^^X[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ [] \OML/cmm/m/it/12 ^^V[]^^X[]
  []
 
 
-Overfull \hbox (50.32292pt too wide) detected at line 191
+Overfull \hbox (50.32292pt too wide) detected at line 193
 \OML/cmm/m/it/12 ^^U[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 y[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 < w; x[] > \OT1/cmr/m/n/12 +\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1 + \OML/cmm/m/it/12 ^^X[]\OT1/cmr/m/n/12 ) = 0 \OMS/cmsy/m/n/12 ! \OML/cmm/m/it/12 ^^U[] \OT1/cmr/m/n/12 = 0[](\OML/cmm/m/it/12 y[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 < w; x[] > \OT1/cmr/m/n/12 +\OML/cmm/m/it/12 b\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1 + \OML/cmm/m/it/12 ^^X[]\OT1/cmr/m/n/12 ) = 0
  []
 
-[4]
-Overfull \hbox (1.59557pt too wide) in paragraph at lines 200--203
+[6]
+Overfull \hbox (1.59557pt too wide) in paragraph at lines 202--205
 \T2A/cmr/m/n/12 стороны от разделяющей гиперплоскости и на достаточном
  []
 
 
-Overfull \hbox (22.29146pt too wide) in paragraph at lines 203--205
+Overfull \hbox (22.29146pt too wide) in paragraph at lines 205--207
 \T2A/cmr/m/n/12 прямо на границе. Дает вклад в $\OML/cmm/m/it/12 w$\T2A/cmr/m/n/12 . $\OML/cmm/m/it/12 x[]$ \T2A/cmr/m/n/12 - \T2A/cmr/bx/n/12 опорный граничный. 
  []
 
 
-Overfull \hbox (1.45784pt too wide) in paragraph at lines 208--209
+Overfull \hbox (1.45784pt too wide) in paragraph at lines 210--211
 []\T2A/cmr/m/n/12 Подставляем $\OML/cmm/m/it/12 w \OT1/cmr/m/n/12 = [][] \OML/cmm/m/it/12 ^^Uy[]x[]$ \T2A/cmr/m/n/12 в лагранжиан, учтем ограничения
  []
 
 
-Overfull \hbox (13.23326pt too wide) in paragraph at lines 218--220
+Overfull \hbox (13.23326pt too wide) in paragraph at lines 220--222
 []\T2A/cmr/m/n/12 Задача зависит от объектов только через скалярное произведение
  []
 
-[5]
-Overfull \hbox (102.16621pt too wide) detected at line 260
+[7]
+Overfull \hbox (102.16621pt too wide) detected at line 262
 \OML/cmm/m/it/12 K\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 z\OT1/cmr/m/n/12 ) = [][] \OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 e[]dw [] [][] p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 cos\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 z\OT1/cmr/m/n/12 )) + \OML/cmm/m/it/12 i [][] p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 cos\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 z\OT1/cmr/m/n/12 ))
  []
 
 
-Overfull \hbox (29.99702pt too wide) detected at line 263
+Overfull \hbox (29.99702pt too wide) detected at line 265
 [] [] \OMS/cmsy/m/n/12 ! \OML/cmm/m/it/12 K\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 z\OT1/cmr/m/n/12 ) = [][] \OML/cmm/m/it/12 p\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 cos\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 z\OT1/cmr/m/n/12 ))\OML/cmm/m/it/12 dw
  []
 
-[6] [7]
-Overfull \hbox (9.39832pt too wide) in paragraph at lines 316--317
+[8] [9]
+Overfull \hbox (9.39832pt too wide) in paragraph at lines 318--319
 []\T2A/cmr/m/n/12 Логарифм многооптимальная функция - просто оптимизировать ее сложно 
  []
 
-[8]
-Overfull \hbox (25.39867pt too wide) in paragraph at lines 407--409
+[10]
+Overfull \hbox (25.39867pt too wide) in paragraph at lines 409--411
 []\T2A/cmr/m/n/12 Все предельные точки последовательности $\OT1/cmr/m/n/12 ^^B$ \T2A/cmr/m/n/12 являются станционарными
  []
 
 
-Overfull \hbox (30.99841pt too wide) in paragraph at lines 409--411
+Overfull \hbox (30.99841pt too wide) in paragraph at lines 411--413
 []$\OML/cmm/m/it/12 logP\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X \OMS/cmsy/m/n/12 j \OT1/cmr/m/n/12 ^^B)$ \T2A/cmr/m/n/12 монотонно сходится к $\OML/cmm/m/it/12 logP\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 X \OMS/cmsy/m/n/12 j \OT1/cmr/m/n/12 ^^B[])$ \T2A/cmr/m/n/12 - одной из станционарных
  []
 
-[9]
-Overfull \hbox (19.01823pt too wide) in paragraph at lines 423--425
+[11]
+Overfull \hbox (19.01823pt too wide) in paragraph at lines 425--427
 []\T2A/cmr/m/n/12 Минимизировать KL-дивергенцию между эмпирическим и параметрическим
  []
 
 
-Overfull \hbox (12.7602pt too wide) in paragraph at lines 437--439
+Overfull \hbox (12.7602pt too wide) in paragraph at lines 439--441
 \T2A/cmr/m/n/12 В обучении есть только один класс - неаномальный, надо научится отделять
  []
 
 
-Overfull \hbox (31.04013pt too wide) in paragraph at lines 448--451
+Overfull \hbox (31.04013pt too wide) in paragraph at lines 450--453
 []\T2A/cmr/m/n/12 Выбираем объекты $\OML/cmm/m/it/12 X[]$ \T2A/cmr/m/n/12 из минорного класса, выбираем случаный
  []
 
 
-Overfull \hbox (1.82043pt too wide) in paragraph at lines 461--463
+Overfull \hbox (1.82043pt too wide) in paragraph at lines 463--465
 []\T2A/cmr/m/n/12 Бенчмарк: Классификация X на нормальные и аномальные, стандартные
  []
 
-[10] [11] [12]
-Overfull \hbox (2.62894pt too wide) in paragraph at lines 588--590
+[12] [13] [14]
+Overfull \hbox (2.62894pt too wide) in paragraph at lines 590--592
 []\T2A/cmr/m/n/12 Отделить как можно больше объектов от 0. За это отвечает
  []
 
 
-Overfull \hbox (5.56358pt too wide) in paragraph at lines 592--594
+Overfull \hbox (5.56358pt too wide) in paragraph at lines 594--596
 []\T2A/cmr/m/n/12 Гиперплоскость как можно дальше от нуля. За это отвечает
  []
 
 
-Overfull \hbox (17.96472pt too wide) in paragraph at lines 616--618
+Overfull \hbox (17.96472pt too wide) in paragraph at lines 618--620
 []\T2A/cmr/m/n/12 Строим жадное дерево со случайными предикатами по случайным
  []
 
-[13]
-Overfull \hbox (9.3155pt too wide) in paragraph at lines 655--657
+[15]
+Overfull \hbox (9.3155pt too wide) in paragraph at lines 657--659
 []\T2A/cmr/m/n/12 Берем индикатор попадания в листья и строим линейную модель 
  []
 
-[14]
-Overfull \hbox (25.85205pt too wide) in paragraph at lines 734--735
+[16]
+Overfull \hbox (25.85205pt too wide) in paragraph at lines 736--737
 [][][][][][][][][][][][][][][][][] 
  []
 
-[15] [16] [17] [18]
-Overfull \hbox (62.12181pt too wide) in paragraph at lines 893--896
+[17] [18] [19] [20]
+Overfull \hbox (62.12181pt too wide) in paragraph at lines 895--898
 []\T2A/cmr/m/n/12 Характеристическое уравнение выражаем в виде характеристического
  []
 
-[19]
-Overfull \hbox (10.64183pt too wide) in paragraph at lines 958--960
+[21]
+Overfull \hbox (10.64183pt too wide) in paragraph at lines 960--962
 []\T2A/cmr/m/n/12 Можно упорядочить объекты так, чтобы L был блочно-диагональным 
  []
 
 
-Overfull \hbox (37.47203pt too wide) in paragraph at lines 969--971
+Overfull \hbox (37.47203pt too wide) in paragraph at lines 971--973
 []\T2A/cmr/m/n/12 Спектр блочно-диагональной матрицы = объединение спектров отдельных
  []
 
 
-Overfull \hbox (24.48668pt too wide) in paragraph at lines 988--991
+Overfull \hbox (24.48668pt too wide) in paragraph at lines 990--993
 []\T2A/cmr/m/n/12 Находим m (гиперпараметр) нормированных собственных векторов
  []
 
 
-Overfull \hbox (50.53127pt too wide) in paragraph at lines 1007--1007
+Overfull \hbox (50.53127pt too wide) in paragraph at lines 1009--1009
 []\T2A/cmr/bx/n/17.28 Метрики качества классификации, тематическое
  []
 
-[20]
-Overfull \hbox (42.7106pt too wide) in paragraph at lines 1050--1052
+[22]
+Overfull \hbox (42.7106pt too wide) in paragraph at lines 1052--1054
 []\T2A/cmr/m/n/12 Значение метрики качества должно уменьшаться при объединении
  []
 
 
-Overfull \hbox (34.87918pt too wide) in paragraph at lines 1055--1057
+Overfull \hbox (34.87918pt too wide) in paragraph at lines 1057--1059
 []\T2A/cmr/m/n/12 Значение метрики качества должно уменьшаться при разделении
  []
 
 
-Overfull \hbox (5.34822pt too wide) in paragraph at lines 1060--1063
+Overfull \hbox (5.34822pt too wide) in paragraph at lines 1062--1065
 []\T2A/cmr/m/n/12 Значение метрики качества должно быть выше у той версии
  []
 
 
-Overfull \hbox (1.04088pt too wide) in paragraph at lines 1060--1063
+Overfull \hbox (1.04088pt too wide) in paragraph at lines 1062--1065
 \T2A/cmr/m/n/12 обоим кластерам элемент в шумный кластер, по сравнению
  []
 
 
-Overfull \hbox (4.46716pt too wide) in paragraph at lines 1060--1063
+Overfull \hbox (4.46716pt too wide) in paragraph at lines 1062--1065
 \T2A/cmr/m/n/12 с версией, которая помещает этот элемент в чистый кластер 
  []
 
-[21]
-Overfull \hbox (13.34271pt too wide) in paragraph at lines 1066--1068
+[23]
+Overfull \hbox (13.34271pt too wide) in paragraph at lines 1068--1070
 \T2A/cmr/m/n/12 небольших кластеров должно обходиться дороже небольшого
  []
 
-[22] [23] [24]
-Overfull \hbox (57.8747pt too wide) detected at line 1263
+[24] [25] [26]
+Overfull \hbox (57.8747pt too wide) detected at line 1265
 [][] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 C[] [] []\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1 \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 y[] < w; x[] >\OT1/cmr/m/n/12 ) + \OML/cmm/m/it/12 C[] [] []\OT1/cmr/m/n/12 (0\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 1\OMS/cmsy/m/n/12 ^^@ j\OML/cmm/m/it/12 < w; x[] >\OMS/cmsy/m/n/12 j\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ! []
  []
 
-[25]
-Overfull \hbox (7.61655pt too wide) in paragraph at lines 1265--1267
+[27]
+Overfull \hbox (7.61655pt too wide) in paragraph at lines 1267--1269
 []\T2A/cmr/m/n/12 Может подобрать гиперплоскость, которая просто лежит далеко
  []
 
 
-Overfull \hbox (1.64919pt too wide) in paragraph at lines 1276--1278
+Overfull \hbox (1.64919pt too wide) in paragraph at lines 1278--1280
 []\T2A/cmr/m/n/12 Очень сложная задача с точки зрения оптимизации- максимум,
  []
 
-[26] [27] [28]
-Overfull \hbox (14.21008pt too wide) in paragraph at lines 1488--1490
+[28] [29] [30]
+Overfull \hbox (14.21008pt too wide) in paragraph at lines 1490--1492
 []\T2A/cmr/m/n/12 Если между точками угла маленький - вероятность их рассечения
  []
 
-[29]
-Overfull \hbox (29.65402pt too wide) in paragraph at lines 1513--1515
+[31]
+Overfull \hbox (29.65402pt too wide) in paragraph at lines 1515--1517
 []\T2A/cmr/m/n/12 При большом расстоянии все равно есть вероятность совпадения
  []
 
 
-Overfull \hbox (23.38884pt too wide) in paragraph at lines 1515--1517
+Overfull \hbox (23.38884pt too wide) in paragraph at lines 1517--1519
 []\T2A/cmr/m/n/12 Хотим форму сигмоиды, а не линейно убывающую вероятность
  []
 
 
-Overfull \hbox (3.58968pt too wide) in paragraph at lines 1548--1552
+Overfull \hbox (3.58968pt too wide) in paragraph at lines 1550--1554
 \T2A/cmr/m/n/12 для нового объекта u с вероятностью $\OT1/cmr/m/n/12 1 \OMS/cmsy/m/n/12 ^^@ \OML/cmm/m/it/12 ^^O$\T2A/cmr/m/n/12 , алгоритм возвращает
  []
 
 
-Overfull \hbox (0.20403pt too wide) in paragraph at lines 1548--1552
+Overfull \hbox (0.20403pt too wide) in paragraph at lines 1550--1554
 \T2A/cmr/m/n/12 объект выборки $\OML/cmm/m/it/12 z \OMS/cmsy/m/n/12 2 \OML/cmm/m/it/12 X \OT1/cmr/m/n/12 : \OML/cmm/m/it/12 ^^Z\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 u; z\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 C^^Z\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 u; x[]\OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 , где $\OML/cmm/m/it/12 x[]$ \T2A/cmr/m/n/12 - ближайший
  []
 
 
-Overfull \hbox (8.50172pt too wide) in paragraph at lines 1561--1564
+Overfull \hbox (8.50172pt too wide) in paragraph at lines 1563--1566
 []\T2A/cmr/m/n/12 Small world graph - если сгенерировать случайный граф - среднее
  []
 
-[30]
-Overfull \hbox (18.40045pt too wide) in paragraph at lines 1594--1596
+[32]
+Overfull \hbox (18.40045pt too wide) in paragraph at lines 1596--1598
 []\T2A/cmr/m/n/12 Свойство малого мира достигается за счет связующих цепочек
  []
 
 
-Overfull \hbox (10.61848pt too wide) in paragraph at lines 1602--1604
+Overfull \hbox (10.61848pt too wide) in paragraph at lines 1604--1606
 []\T2A/cmr/m/n/12 Начинаем с самого верхнего уровня графа: находим ближайшего
  []
 
-[31]
-Overfull \hbox (11.62627pt too wide) in paragraph at lines 1646--1648
+[33]
+Overfull \hbox (11.62627pt too wide) in paragraph at lines 1648--1650
 []\T2A/cmr/m/n/12 Работает, когда таргет является разметкой релевантности документов
  []
 
-[32]
-Overfull \hbox (16.49207pt too wide) in paragraph at lines 1730--1732
+[34]
+Overfull \hbox (16.49207pt too wide) in paragraph at lines 1732--1734
 []\T2A/cmr/m/n/12 Косинусное расстояние между эмбеддингами документа и запроса 
  []
 
-[33] [34]
-Overfull \hbox (23.01833pt too wide) in paragraph at lines 1823--1825
+[35] [36]
+Overfull \hbox (23.01833pt too wide) in paragraph at lines 1825--1827
 []\T2A/cmr/m/n/12 Максимальную вероятность имеет перестановка с отсортированной
  []
 
 
-Overfull \hbox (5.10016pt too wide) in paragraph at lines 1839--1841
+Overfull \hbox (5.10016pt too wide) in paragraph at lines 1841--1843
 []\T2A/cmr/m/n/12 Вероятность, что j документ попадет на первое место в перестановке: 
  []
 
-[35]
-Overfull \hbox (6.53961pt too wide) in paragraph at lines 1886--1889
+[37]
+Overfull \hbox (6.53961pt too wide) in paragraph at lines 1888--1891
 []\T2A/cmr/m/n/12 Просто используем эвристики - находим похожих пользователей
  []
 
 
-Overfull \hbox (36.00407pt too wide) in paragraph at lines 1915--1917
+Overfull \hbox (36.00407pt too wide) in paragraph at lines 1917--1919
 []\T2A/cmr/m/n/12 Если матрица R известна, то это задача низкорангового приближения
  []
 
 
-Overfull \hbox (11.91968pt too wide) in paragraph at lines 1918--1920
+Overfull \hbox (11.91968pt too wide) in paragraph at lines 1920--1922
 []\T2A/cmr/m/n/12 PureSVD: Заполняем все пропуски нулями и применяем обычный
  []
 
-[36]
-Overfull \hbox (12.94695pt too wide) in paragraph at lines 1937--1939
+[38]
+Overfull \hbox (12.94695pt too wide) in paragraph at lines 1939--1941
 []\T2A/cmr/m/n/12 Когда приходит u решаем задачу линейной регрессии, обучая
  []
 
 
-Overfull \hbox (1.92189pt too wide) in paragraph at lines 1952--1953
+Overfull \hbox (1.92189pt too wide) in paragraph at lines 1954--1955
 []\T2A/cmr/m/n/12 Задача невыпуклая - можно попасть в локальный минимум 
  []
 
-[37]
-Overfull \hbox (25.23366pt too wide) in paragraph at lines 2001--2008
+[39]
+Overfull \hbox (25.23366pt too wide) in paragraph at lines 2003--2010
 []$\OML/cmm/m/it/12 n \OMS/cmsy/m/n/12 ^^B \OML/cmm/m/it/12 m$\T2A/cmr/m/n/12 -матрица $\OT1/cmr/m/n/12 ^^F[]$ \T2A/cmr/m/n/12 диагональная, $\OT1/cmr/m/n/12 ^^F[] = \OML/cmm/m/it/12 diag\OT1/cmr/m/n/12 ([]\OML/cmm/m/it/12 ; [] ; []\OT1/cmr/m/n/12 )$\T2A/cmr/m/n/12 ,
  []
 
-[38] [39]
-Overfull \hbox (0.2686pt too wide) in paragraph at lines 2124--2125
+[40] [41]
+Overfull \hbox (0.2686pt too wide) in paragraph at lines 2126--2127
 []\T2A/cmr/m/n/12 Автоматическая оптимизация гиперпараметров / подбор ансамблей 
  []
 
 
-Overfull \hbox (12.53775pt too wide) in paragraph at lines 2125--2127
+Overfull \hbox (12.53775pt too wide) in paragraph at lines 2127--2129
 []\T2A/cmr/m/n/12 Автоматическая генерация признаков, аугментаций, отбор признаков,
  []
 
 
-Overfull \hbox (18.31361pt too wide) in paragraph at lines 2131--2134
+Overfull \hbox (18.31361pt too wide) in paragraph at lines 2133--2136
 []\T2A/cmr/m/n/12 Автоматическое определение домена, объединение табличек без знания
  []
 
 
-Overfull \hbox (17.22156pt too wide) in paragraph at lines 2145--2147
+Overfull \hbox (17.22156pt too wide) in paragraph at lines 2147--2149
 []\T2A/cmr/m/n/12 Бывают проприетарные и открытые Au-toML, так же есть исследовательские
  []
 
-[40]
-Overfull \hbox (36.23383pt too wide) in paragraph at lines 2192--2193
+[42]
+Overfull \hbox (36.23383pt too wide) in paragraph at lines 2194--2195
 []\T2A/cmr/m/n/12 Модели на каждой итерации байесовского оптимизатора сохраняются 
  []
 
 
-Overfull \hbox (16.81845pt too wide) in paragraph at lines 2193--2195
+Overfull \hbox (16.81845pt too wide) in paragraph at lines 2195--2197
 []\T2A/cmr/m/n/12 Для каждого датасета нашли оптимальный пайплайн и построили
  []
 
 
-Overfull \hbox (33.62756pt too wide) in paragraph at lines 2193--2195
+Overfull \hbox (33.62756pt too wide) in paragraph at lines 2195--2197
 \T2A/cmr/m/n/12 метамодель - использование 25 оптимальных кандидатов и постройка
  []
 
 
-Overfull \hbox (17.24265pt too wide) in paragraph at lines 2203--2204
+Overfull \hbox (17.24265pt too wide) in paragraph at lines 2205--2206
 []\T2A/cmr/m/n/12 Признаки основаны на качестве модели, а не статистиках датасета 
  []
 
-[41] [42]
-Overfull \hbox (11.03882pt too wide) in paragraph at lines 2257--2258
+[43] [44]
+Overfull \hbox (11.03882pt too wide) in paragraph at lines 2259--2260
 []\T2A/cmr/m/n/12 Верхним слоем подгоняем выход из этих двух эмбеддингов к рейтингу 
  []
 
 
-Overfull \hbox (24.90701pt too wide) in paragraph at lines 2276--2277
+Overfull \hbox (24.90701pt too wide) in paragraph at lines 2278--2279
 []\T2A/cmr/m/n/12 Гарантировать новому айтему некоторое количество рандомных показов 
  []
 
-[43]
-Overfull \hbox (7.5186pt too wide) in paragraph at lines 2301--2302
+[45]
+Overfull \hbox (7.5186pt too wide) in paragraph at lines 2303--2304
 []\T2A/cmr/m/n/12 По пользовательским сигналам отбирать сомнительный контент 
  []
 
 
-Overfull \hbox (30.44531pt too wide) in paragraph at lines 2310--2310
+Overfull \hbox (30.44531pt too wide) in paragraph at lines 2312--2312
 []\T2A/cmr/bx/n/17.28 Нейросетевые методы для табличных данных 
  []
 
-[44] [45]
-Overfull \hbox (84.28342pt too wide) detected at line 2401
+[46] [47]
+Overfull \hbox (84.28342pt too wide) detected at line 2403
 \OML/cmm/m/it/12 g\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^U[]; ^^W[]\OT1/cmr/m/n/12 ) = [](\OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^U[]f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^W[]h[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^U[]f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) + [] \OML/cmm/m/it/12 ^^W[]h[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 f[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )
  []
 
 
-Overfull \hbox (10.60197pt too wide) in paragraph at lines 2406--2408
+Overfull \hbox (10.60197pt too wide) in paragraph at lines 2408--2410
 []\T2A/cmr/m/n/12 Если решить безусловную задачу при подставлении $\OML/cmm/m/it/12 ^^U[]; ^^W[]$\T2A/cmr/m/n/12 , то получим
  []
 
-[46] [47] [48]
-Underfull \hbox (badness 10000) in paragraph at lines 2586--2588
+[48] [49] [50]
+Underfull \hbox (badness 10000) in paragraph at lines 2588--2590
 
  []
 
-[49]
-Underfull \hbox (badness 10000) in paragraph at lines 2604--2607
+[51]
+Underfull \hbox (badness 10000) in paragraph at lines 2606--2609
 
  []
 
 
-Overfull \hbox (14.12779pt too wide) in paragraph at lines 2616--2618
+Overfull \hbox (14.12779pt too wide) in paragraph at lines 2618--2620
 []\T2A/cmr/m/n/12 Если параметры распределены нормально - Нормальный дискриминантный
  []
 
-[50]
-Overfull \hbox (4.26755pt too wide) in paragraph at lines 2671--2673
+[52]
+Overfull \hbox (4.26755pt too wide) in paragraph at lines 2673--2675
 []$\OML/cmm/m/it/12 u[]; [] ; u[]$ \T2A/cmr/m/n/12 - собственные векторы, соотв. минимальным собственным
  []
 
 
-Overfull \hbox (3.7779pt too wide) in paragraph at lines 2682--2684
+Overfull \hbox (3.7779pt too wide) in paragraph at lines 2684--2686
 []\T2A/cmr/m/n/12 В t-SNE ошибка может быть неограничено большой $\OMS/cmsy/m/n/12 !$ \T2A/cmr/m/n/12 зашумленные
  []
 
-[51]
-Overfull \hbox (24.33197pt too wide) detected at line 2748
+[53]
+Overfull \hbox (24.33197pt too wide) detected at line 2750
 []
  []
 
-[52] [53]
-Overfull \hbox (8.64636pt too wide) in paragraph at lines 2802--2804
+[54] [55]
+Overfull \hbox (8.64636pt too wide) in paragraph at lines 2804--2806
 []\T2A/cmr/m/n/12 По векторным описаниям строим псевдоразметку с помощью KMeans 
  []
 
 
-Overfull \hbox (11.03676pt too wide) in paragraph at lines 2815--2817
+Overfull \hbox (11.03676pt too wide) in paragraph at lines 2817--2819
 []\T2A/cmr/m/n/12 Наличие пустых кластеров - берем случайный центр другого кластера
  []
 
-[54] [55] [56] [57] [58] [59] [60] (./main.aux) ) 
+[56] [57] [58] [59] [60] [61] [62] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 5145 strings out of 478846
- 64982 string characters out of 5859785
+ 5151 strings out of 478846
+ 65038 string characters out of 5859785
  394076 words of memory out of 5000000
- 22645 multiletter control sequences out of 15000+600000
+ 22648 multiletter control sequences out of 15000+600000
  429482 words of font info for 95 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  69i,17n,76p,361b,971s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t2a.enc}{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx2488.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb>
-Output written on main.pdf (60 pages, 542307 bytes).
+Output written on main.pdf (62 pages, 548362 bytes).
 PDF statistics:
- 324 PDF objects out of 1000 (max. 8388607)
- 225 compressed objects within 3 object streams
+ 331 PDF objects out of 1000 (max. 8388607)
+ 230 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
